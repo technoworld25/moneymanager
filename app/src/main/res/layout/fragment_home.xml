@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+<LinearLayout
+    android:layout_marginTop="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="15dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/female">
+
+
+            </com.google.android.material.imageview.ShapeableImageView>
+
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black"
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello user,"
+            android:textStyle="normal"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="320dp"
+        android:layout_margin="20dp">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAdProject"
+                android:drawableTop="@drawable/projects"
+                android:text="Add Project"
+               style="@style/HomeImageButtonStyle">
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAdTask"
+                 style="@style/HomeImageButtonStyle"
+                android:drawableTop="@drawable/task"
+                android:text="Add Task">
+
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGetProjects"
+                android:drawableTop="@drawable/add_project"
+                android:text="Get Projects"
+                 style="@style/HomeImageButtonStyle">
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/HomeImageButtonStyle"
+                android:text="Get Tasks"
+                android:drawableTop="@drawable/tasklist"
+                android:id="@+id/btnGetTasks">
+            </com.google.android.material.button.MaterialButton>
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:text="Pending Items"
+        android:id="@+id/btnpendingItems"
+        style="@style/ButtonStyle">
+    </com.google.android.material.button.MaterialButton>
+
+
+
+
+</LinearLayout>
+</ScrollView>

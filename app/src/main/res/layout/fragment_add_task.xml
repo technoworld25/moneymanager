@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.project.AddProjectFragment">
+
+        <TextView
+            android:text="Project Name"
+            android:id="@+id/projectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <TextView
+            android:text="Requested By"
+            android:id="@+id/requestedBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtTaskName"
+            style="@style/InputOuterBox"
+            android:hint="Task Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputTaskName"
+                style="@style/InputFieldStyle"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtTaskDescription"
+            style="@style/InputOuterBox"
+            android:hint="Description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputTaskDescription"
+                android:minLines="4"
+                style="@style/InputFieldStyle"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtCompletionTime"
+            style="@style/SpinnerStyle"
+            android:hint="Assigned To">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:inputType="none"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSave"
+            style="@style/ButtonStyle"
+            android:text="Save" />
+
+    </LinearLayout>
+</ScrollView>
+

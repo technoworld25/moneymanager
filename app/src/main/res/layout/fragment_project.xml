@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
+    android:layout_marginBottom="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.project.AddProjectFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtProjectName"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@android:drawable/ic_menu_agenda"
+        android:hint="Project Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputProjectname"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtClientName"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/profile"
+        android:hint="Client Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputClientName"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtLocationName"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@android:drawable/ic_menu_mylocation"
+        android:hint="Location Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputLocationName"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtContactNumber"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@android:drawable/stat_sys_phone_call"
+        android:hint="Contact Number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputContactNumber"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtPocName"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/profile"
+        android:hint="Point of contact">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputPontOfContact"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtPocNumber"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@android:drawable/stat_sys_phone_call"
+        android:hint="Point of contact number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputPointOfContact"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtArchitectName"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/profile"
+        style="@style/InputOuterBox"
+        android:hint="Architect Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputArchitectName"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtArchitectContactNumber"
+        style="@style/InputOuterBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@android:drawable/stat_sys_phone_call"
+        android:hint="Architect Contact">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputArchitectContactNumber"
+            style="@style/InputFieldStyle"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:hint="Responsibilty"
+        style="@style/SpinnerStyle">
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:inputType="none"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:hint="State"
+        style="@style/SpinnerStyle">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:inputType="none"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:hint="Year"
+        style="@style/SpinnerStyle">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:inputType="none"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSave"
+        style="@style/ButtonStyle"
+        android:text="Save" />
+</LinearLayout>
+</ScrollView>
+
