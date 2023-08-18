@@ -1,28 +1,28 @@
-package com.apptechno.dailyprojectmanagment.ui.project
+package com.apptechno.dailyprojectmanagment.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apptechno.dailyprojectmanagment.model.*
+import com.apptechno.dailyprojectmanagment.model.NetworkResponse
+import com.apptechno.dailyprojectmanagment.model.User
+import com.apptechno.dailyprojectmanagment.model.UserRequest
 import com.apptechno.dailyprojectmanagment.network.GetDataService
 import com.apptechno.dailyprojectmanagment.network.RetrofitClientInstance
 import kotlinx.coroutines.launch
 
-class ProjectViewModel : ViewModel() {
+class AuthViewModel : ViewModel() {
+
+    private val TAG = "AuthViewModel"
+
+    val response : LiveData<NetworkResponse<User>> =MutableLiveData()
 
 
-    private val TAG = "ProjectViewModel"
-
-    val response : LiveData<NetworkResponse<Project>> =MutableLiveData()
-    val taskResponse : LiveData<NetworkResponse<Task>> =MutableLiveData()
-
-
-    fun onSaveProjectClicked(projectDetails: Project){
+    fun onLoginClicked(userData: UserRequest){
         val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
         viewModelScope.launch {
             response as MutableLiveData
-            val result = retrofitService?.registerProject(projectDetails)
+            val result = retrofitService?.loginUser(userData)
             if(result!=null && result!!.isSuccessful()){
                 response.value = result!!.body()
 
@@ -32,15 +32,18 @@ class ProjectViewModel : ViewModel() {
 
     }
 
-    fun onSaveTaskClicked(taskDetails: Task){
+    fun onRegisterClicked(userData: User){
         val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
+
         viewModelScope.launch {
-            taskResponse as MutableLiveData
-            val result = retrofitService?.addTask(taskDetails)
+            response as MutableLiveData
+            val result = retrofitService?.registerUser(userData)
             if(result!=null && result!!.isSuccessful()){
-                taskResponse.value = result!!.body()
+                response.value = result!!.body()
+
 
             }
+
 
         }
 

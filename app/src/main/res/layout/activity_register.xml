@@ -80,6 +80,7 @@
     <com.google.android.material.button.MaterialButton
         style="@style/ButtonStyle"
         android:id="@+id/btnRegister"
+        android:onClick="onRegisterButtonClicked"
         android:text="REGISTER"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

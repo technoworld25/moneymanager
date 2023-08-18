@@ -60,6 +60,7 @@
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:inputType="none"
+                android:id="@+id/assigneeSpinner"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
