@@ -2,59 +2,72 @@ package com.apptechno.dailyprojectmanagment.ui.task
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
-import com.apptechno.dailyprojectmanagment.ui.task.placeholder.PlaceholderContent
+import com.apptechno.dailyprojectmanagment.databinding.FragmentTaskListBinding
+import com.apptechno.dailyprojectmanagment.model.Project
+import com.apptechno.dailyprojectmanagment.model.TaskResponse
+import com.apptechno.dailyprojectmanagment.ui.project.ProjectViewModel
+import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
+import kotlinx.coroutines.launch
 
-/**
- * A fragment representing a list of Items.
- */
-class TaskFragment : Fragment() {
 
-    private var columnCount = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
+class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener {
+    lateinit var _binding: FragmentTaskListBinding
+    private val binding get() = _binding!!
+    lateinit var viewModel: ProjectViewModel
+    lateinit var tasks : List<TaskResponse>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_task_list, container, false)
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyTaskRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            }
-        }
-        return view
+        _binding = FragmentTaskListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
 
-        const val ARG_COLUMN_COUNT = "column-count"
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            TaskFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        val projectName = arguments?.getString("projectName").toString()
+        (activity as HomeActivity).supportActionBar!!.elevation = 0f
+        (activity as HomeActivity)!!.supportActionBar!!.title = "Get Tasks"
+        (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        viewModel = ViewModelProvider(this).get(ProjectViewModel::class.java)
+        lifecycleScope.launch {
+            viewModel.getTasks(projectName)
+        }
+
+        viewModel.tasks.observe(this, Observer {
+             tasks = it.data
+            val adapter = MyTaskRecyclerViewAdapter(tasks,this)
+            _binding.list.adapter = adapter
+            ProjectUtility.showToastMessage(requireContext(),it.message)
+
+        })
+
+    }
+
+    override fun onItemClick(position: Int) {
+        val item = tasks[position - 1]
+
+        val bundle = Bundle().apply {
+            putParcelable("taskResponse", item)
+        }
+
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_taskFragment_to_addTaskFragment,bundle)
+
     }
 }

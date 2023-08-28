@@ -80,13 +80,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGetProjects"
                 android:drawableTop="@drawable/add_project"
-                android:text="Get Projects"
+                android:text="Update Projects"
                  style="@style/HomeImageButtonStyle">
             </com.google.android.material.button.MaterialButton>
 
             <com.google.android.material.button.MaterialButton
                 style="@style/HomeImageButtonStyle"
-                android:text="Get Tasks"
+                android:text="Update Tasks"
                 android:drawableTop="@drawable/tasklist"
                 android:id="@+id/btnGetTasks">
             </com.google.android.material.button.MaterialButton>
@@ -94,6 +94,12 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:text="Assigned Tasks"
+        android:id="@+id/btnAssignedTasks"
+        style="@style/ButtonStyle">
+    </com.google.android.material.button.MaterialButton>
 
     <com.google.android.material.button.MaterialButton
         android:text="Pending Items"

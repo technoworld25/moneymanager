@@ -41,10 +41,7 @@ class AuthViewModel : ViewModel() {
             if(result!=null && result!!.isSuccessful()){
                 response.value = result!!.body()
 
-
             }
-
-
         }
 
     }

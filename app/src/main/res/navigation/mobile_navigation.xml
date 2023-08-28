@@ -15,21 +15,35 @@
             app:destination="@id/nav_add_project" />
         <action
             android:id="@+id/action_nav_home_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
+            app:destination="@id/addTaskFragment" >
+            <argument
+                android:name="taskResponse"
+                app:argType="com.apptechno.dailyprojectmanagment.model.TaskResponse">
+            </argument>
+        </action>
         <action
             android:id="@+id/action_nav_home_to_taskFragment"
             app:destination="@id/taskFragment" />
         <action
             android:id="@+id/action_nav_home_to_projectListFragment"
-            app:destination="@id/projectListFragment" />
+            app:destination="@id/projectListFragment" >
+            <argument
+                android:name="type"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
-
         android:id="@+id/nav_add_project"
         android:name="com.apptechno.dailyprojectmanagment.ui.project.AddProjectFragment"
         android:label="Add Project"
-        tools:layout="@layout/fragment_project" />
+        tools:layout="@layout/fragment_project">
+        <argument
+            android:name="projectResponse"
+            app:argType="com.apptechno.dailyprojectmanagment.model.Project">
+
+        </argument>
+    </fragment>
 
     <fragment
         android:id="@+id/addTaskFragment"
@@ -40,10 +54,31 @@
         android:id="@+id/taskFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.task.TaskFragment"
         android:label="fragment_task_list"
-        tools:layout="@layout/fragment_task_list" />
+        tools:layout="@layout/fragment_task_list" >
+        <action
+            android:id="@+id/action_taskFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
     <fragment
         android:id="@+id/projectListFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.project.ProjectListFragment"
         android:label="fragment_project_item"
-        tools:layout="@layout/fragment_project_item" />
+        tools:layout="@layout/fragment_project_item" >
+        <action
+            android:id="@+id/action_projectListFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment">
+            <argument
+                android:name="projectId"
+                app:argType="string" />
+            <argument
+                android:name="projectName"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_projectListFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
+        <action
+            android:id="@+id/action_projectListFragment_to_nav_add_project"
+            app:destination="@id/nav_add_project" />
+    </fragment>
 </navigation>

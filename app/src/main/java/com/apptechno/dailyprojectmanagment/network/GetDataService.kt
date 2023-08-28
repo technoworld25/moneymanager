@@ -4,6 +4,7 @@ import com.apptechno.dailyprojectmanagment.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 
 interface GetDataService {
@@ -18,13 +19,22 @@ interface GetDataService {
     suspend fun registerProject(@Body projectDetails: Project): Response<NetworkResponse<Project>>
 
     @POST("getProjects.php")
-    suspend fun getAllProjects(@Body projectDetails: Project): Response<NetworkResponse<List<Project>>>
+    suspend fun getAllProjects(): Response<NetworkResponse<List<Project>>>
 
-    @POST("addTask.php")
+    @POST("saveTask.php")
     suspend fun addTask(@Body task: Task): Response<NetworkResponse<Task>>
 
     @POST("getTasks.php")
-    suspend fun getTasks(): Response<NetworkResponse<List<Task>>>
+    suspend fun getTasks(@Body request: GetTaskRequest): Response<NetworkResponse<List<TaskResponse>>>
+
+    @POST("updateProject.php")
+    suspend fun updateProject(@Body projectDetails: Project): Response<NetworkResponse<Project>>
+
+    @POST("updateTask.php")
+    suspend fun updateTask(@Body task: Task): Response<NetworkResponse<Task>>
+
+    @POST("assignedTasks.php")
+    suspend fun getAssignedtasks(@Body task: Task): Response<NetworkResponse<Task>>
 
 
 }

@@ -7,18 +7,19 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
     <LinearLayout
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.project.AddProjectFragment">
+        android:orientation="vertical">
 
         <TextView
             android:text="Project Name"
             android:id="@+id/projectName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:textStyle="bold"
             android:textAlignment="textStart"
             android:textSize="20sp" />
 
@@ -27,7 +28,10 @@
             android:id="@+id/requestedBy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:textStyle="bold"
             android:textAlignment="textStart"
             android:textSize="20sp" />
 
@@ -54,13 +58,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtCompletionTime"
             style="@style/SpinnerStyle"
             android:hint="Assigned To">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:inputType="none"
                 android:id="@+id/assigneeSpinner"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/SpinnerStyle"
+            android:hint="Task State">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:inputType="none"
+                android:id="@+id/stateSpinner"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>

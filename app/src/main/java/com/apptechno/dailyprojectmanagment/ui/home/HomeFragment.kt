@@ -63,21 +63,43 @@ class HomeFragment : Fragment() {
 
         binding.btnAdProject.setOnClickListener {
             navController.navigate(R.id.action_nav_home_to_nav_add_project)
-            // navController.navigate(R.id.action)
+
         }
 
         binding.btnAdTask.setOnClickListener {
-            navController.navigate(R.id.action_nav_home_to_addTaskFragment)
-            // navController.navigate(R.id.action)
+            val bundle = Bundle().apply {
+                putString("type","task" )
+
+            }
+            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
+
         }
 
         binding.btnGetProjects.setOnClickListener {
-            navController.navigate(R.id.action_nav_home_to_projectListFragment)
+            val bundle = Bundle().apply {
+                putString("type","editProject" )
+
+            }
+            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
         }
 
         binding.btnGetTasks.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("type","editTask" )
 
-            navController.navigate(R.id.action_nav_home_to_taskFragment)
+            }
+            val navHostFragment =
+                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+            val navController = navHostFragment.navController
+            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
+        }
+
+        binding.btnAssignedTasks.setOnClickListener {
+
+            val navHostFragment =
+                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+            val navController = navHostFragment.navController
+           // navController.navigate(R.id.ac)
         }
 
     }

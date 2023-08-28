@@ -2,22 +2,26 @@ package com.apptechno.dailyprojectmanagment.ui.task
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentTaskBinding
+import com.apptechno.dailyprojectmanagment.model.TaskResponse
+import com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener
 
-import com.apptechno.dailyprojectmanagment.ui.task.placeholder.PlaceholderContent.PlaceholderItem
 
-
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class MyTaskRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+     var tasks: List<TaskResponse>,private val listener: onItemClickListener
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
+
+
+    init {
+        val taskList = ArrayList(tasks)
+        val task = TaskResponse("taskid","Assigner","Task Name","Description","State","Assignee",1,1,"Name","Client")
+        taskList.add(0 ,task)
+        tasks = taskList
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -32,20 +36,37 @@ class MyTaskRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        val item = tasks[position]
+        holder.taskName.text = item.taskname
+        holder.state.text = item.state
+        holder.asignee.text = item.assignee
+
+        // Set different colors for the 0th element
+        if (position == 0) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,R.color.grey_color))
+        } else {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,R.color.white))
+
+        }
     }
 
-    override fun getItemCount(): Int = values.size
+
+    override fun getItemCount(): Int = tasks.size
 
     inner class ViewHolder(binding: FragmentTaskBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+        val taskName: TextView = binding.taskName
+        val state: TextView = binding.state
+        val asignee: TextView = binding.assignee
 
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(position)
+                }
+            }
         }
+
     }
 
 }
