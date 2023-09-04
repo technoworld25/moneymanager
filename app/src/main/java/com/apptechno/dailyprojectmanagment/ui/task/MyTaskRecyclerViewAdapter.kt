@@ -15,7 +15,6 @@ class MyTaskRecyclerViewAdapter(
      var tasks: List<TaskResponse>,private val listener: onItemClickListener
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
 
-
     init {
         val taskList = ArrayList(tasks)
         val task = TaskResponse("taskid","Assigner","Task Name","Description","State","Assignee",1,1,"Name","Client")

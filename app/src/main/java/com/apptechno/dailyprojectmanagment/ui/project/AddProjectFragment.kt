@@ -28,7 +28,7 @@ class AddProjectFragment : Fragment() {
     lateinit var type:String
     lateinit var projectId:String
 
-    val states = arrayOf("New","In Progress","Completed" )
+    val states = arrayOf("Ongoing","Completed" )
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -158,7 +158,7 @@ class AddProjectFragment : Fragment() {
         yearAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         _binding!!.yearSpinner.setAdapter(yearAdapter)
 
-        val assignees = arrayOf("Anupam L","Anupam22")
+        val assignees = arrayOf("Anupam Limaye","Veejhay Limaye","Abhijeet Limaye")
         val assigneesAdapter: ArrayAdapter<String> = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, assignees)
         assigneesAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         _binding!!.responsibiltySpinner.setAdapter(assigneesAdapter)

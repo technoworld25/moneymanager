@@ -31,6 +31,12 @@
                 android:name="type"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_nav_home_to_assignedTaskFragment"
+            app:destination="@id/assignedTaskFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_pendingItemsFragment"
+            app:destination="@id/pendingItemsFragment" />
     </fragment>
 
     <fragment
@@ -81,4 +87,22 @@
             android:id="@+id/action_projectListFragment_to_nav_add_project"
             app:destination="@id/nav_add_project" />
     </fragment>
+    <fragment
+        android:id="@+id/assignedTaskFragment"
+        android:name="com.apptechno.dailyprojectmanagment.ui.AssignedTaskFragment"
+        android:label="fragment_assigned_task_list"
+        tools:layout="@layout/fragment_assigned_task_list" />
+    <fragment
+        android:id="@+id/pendingItemsFragment"
+        android:name="com.apptechno.dailyprojectmanagment.ui.PendingItemsFragment"
+        android:label="PendingItemsFragment" >
+        <action
+            android:id="@+id/action_pendingItemsFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailsFragment"
+        android:name="com.apptechno.dailyprojectmanagment.ui.task.TaskDetailsFragment"
+        android:label="fragment_task_details"
+        tools:layout="@layout/fragment_task_details" />
 </navigation>

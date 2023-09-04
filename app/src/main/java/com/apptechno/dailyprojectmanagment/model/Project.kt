@@ -40,7 +40,7 @@ data class Project(
      val year:String,
 
     @SerializedName("state")
-    val state:String
+    var state:String
     ) :Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),

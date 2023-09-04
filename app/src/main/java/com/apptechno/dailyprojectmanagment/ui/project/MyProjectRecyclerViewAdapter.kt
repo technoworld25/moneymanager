@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.apptechno.dailyprojectmanagment.R
-
-import com.apptechno.dailyprojectmanagment.placeholder.PlaceholderContent.PlaceholderItem
 import com.apptechno.dailyprojectmanagment.databinding.FragmentProjectListBinding
 import com.apptechno.dailyprojectmanagment.model.Project
 

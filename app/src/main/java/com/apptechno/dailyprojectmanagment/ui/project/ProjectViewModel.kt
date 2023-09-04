@@ -15,12 +15,8 @@ class ProjectViewModel : ViewModel() {
     private val TAG = "ProjectViewModel"
 
     val response : LiveData<NetworkResponse<Project>> =MutableLiveData()
-    val taskResponse : LiveData<NetworkResponse<Task>> =MutableLiveData()
-
     val projects : LiveData<NetworkResponse<List<Project>>> =MutableLiveData()
-    val tasks : LiveData<NetworkResponse<List<TaskResponse>>> =MutableLiveData()
     val updateProjectResponse : LiveData<NetworkResponse<Project>> = MutableLiveData()
-    val updateTasksResponse : LiveData<NetworkResponse<Task>> =MutableLiveData()
 
 
     fun onSaveProjectClicked(projectDetails: Project){
@@ -37,19 +33,6 @@ class ProjectViewModel : ViewModel() {
 
     }
 
-    fun onSaveTaskClicked(taskDetails: Task){
-        val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
-        viewModelScope.launch {
-            taskResponse as MutableLiveData
-            val result = retrofitService?.addTask(taskDetails)
-            if(result!=null && result!!.isSuccessful()){
-                taskResponse.value = result!!.body()
-
-            }
-
-        }
-
-    }
     fun getProjects(){
         val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
         projects as MutableLiveData
@@ -68,20 +51,6 @@ class ProjectViewModel : ViewModel() {
 
     }
 
-    fun getTasks(projectName:String){
-
-        val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
-        tasks as MutableLiveData
-
-         viewModelScope.launch {
-
-            val result = retrofitService?.getTasks(GetTaskRequest(projectName))
-            if(result!=null && result!!.isSuccessful()){
-
-                tasks.value = result.body()
-            }
-         }
-    }
 
     fun updateProjectClicked(projectDetails: Project) {
         val retrofitService =
@@ -92,22 +61,6 @@ class ProjectViewModel : ViewModel() {
             val result = retrofitService?.updateProject(projectDetails)
             if (result != null && result!!.isSuccessful()) {
                 updateProjectResponse.value = result!!.body()
-
-            }
-
-        }
-
-    }
-
-    fun updateTaskClicked(projectDetails: Task) {
-        val retrofitService =
-            RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
-
-        viewModelScope.launch {
-            updateTasksResponse as MutableLiveData
-            val result = retrofitService?.updateTask(projectDetails)
-            if (result != null && result!!.isSuccessful()) {
-                updateTasksResponse.value = result!!.body()
 
             }
 

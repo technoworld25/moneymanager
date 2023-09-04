@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentHomeBinding
+import com.apptechno.dailyprojectmanagment.utility.Constants
+import com.apptechno.dailyprojectmanagment.utility.SharedUtility
 
 
 class HomeFragment : Fragment() {
@@ -49,9 +48,10 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
+        val sharedUtility = SharedUtility(requireContext())
+        textView.text = sharedUtility.getString(Constants.USERNAME,"")
+
         setNavigations()
     }
 
@@ -99,7 +99,15 @@ class HomeFragment : Fragment() {
             val navHostFragment =
                 requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
             val navController = navHostFragment.navController
-           // navController.navigate(R.id.ac)
+            navController.navigate(R.id.action_nav_home_to_assignedTaskFragment)
+        }
+
+        binding.btnpendingItems.setOnClickListener {
+
+            val navHostFragment =
+                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+            val navController = navHostFragment.navController
+            navController.navigate(R.id.action_nav_home_to_pendingItemsFragment)
         }
 
     }
@@ -108,8 +116,6 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 
 
 }

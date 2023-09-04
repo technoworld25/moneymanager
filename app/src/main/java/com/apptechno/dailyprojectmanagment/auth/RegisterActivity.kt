@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 if(it!=null && it.data != null) {
                     Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(mContext, HomeActivity::class.java))
+                    finish()
 
                 }
             })

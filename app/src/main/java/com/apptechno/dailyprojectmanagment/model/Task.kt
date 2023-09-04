@@ -114,3 +114,15 @@ data class GetTaskRequest(
     val projectName: String
 )
 
+data class AssignedTaskRequest(
+
+    @SerializedName("username")
+    val username: String
+)
+
+data class PendingItemsRequest(
+
+    @SerializedName("search")
+    val searchName: String
+)
+

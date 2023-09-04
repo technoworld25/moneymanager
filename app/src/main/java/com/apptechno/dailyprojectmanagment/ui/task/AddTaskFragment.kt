@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class AddTaskFragment : Fragment() {
     private var _binding: FragmentAddTaskBinding? = null
     private val binding get() = _binding!!
-    lateinit var viewModel: ProjectViewModel
+    lateinit var viewModel: TaskViewModel
     lateinit var id :String
     lateinit var project :String
     lateinit var type:String
@@ -46,7 +46,7 @@ class AddTaskFragment : Fragment() {
         (activity as HomeActivity)!!.supportActionBar!!.title = "Add New Task"
         (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        viewModel = ViewModelProvider(this).get(ProjectViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
 
         setSpinners()
         showDetailsIfAvailable()

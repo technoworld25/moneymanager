@@ -34,7 +34,10 @@ interface GetDataService {
     suspend fun updateTask(@Body task: Task): Response<NetworkResponse<Task>>
 
     @POST("assignedTasks.php")
-    suspend fun getAssignedtasks(@Body task: Task): Response<NetworkResponse<Task>>
+    suspend fun getAssignedtasks(@Body request: AssignedTaskRequest): Response<NetworkResponse<List<TaskResponse>>>
+
+    @POST("searchtask.php")
+    suspend fun getSeacrhableTasks(@Body request: PendingItemsRequest): Response<NetworkResponse<List<TaskDetails>>>
 
 
 }

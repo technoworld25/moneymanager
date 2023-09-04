@@ -14,7 +14,9 @@ import com.apptechno.dailyprojectmanagment.databinding.ActivityLoginBinding
 import com.apptechno.dailyprojectmanagment.model.UserRequest
 import com.apptechno.dailyprojectmanagment.network.GetDataService
 import com.apptechno.dailyprojectmanagment.network.RetrofitClientInstance
+import com.apptechno.dailyprojectmanagment.utility.Constants
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
+import com.apptechno.dailyprojectmanagment.utility.SharedUtility
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,19 +28,25 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: AuthViewModel
     private lateinit var mContext: Context
+    private lateinit var sharedUtility: SharedUtility
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          binding = ActivityLoginBinding.inflate(layoutInflater);
         setContentView(binding.root)
         mContext= this@LoginActivity
+        sharedUtility= SharedUtility(mContext)
+       val login= sharedUtility.getBoolean(Constants.LOGGED_IN)
+        if (login == true){
+            startActivity(Intent(mContext, HomeActivity::class.java))
+        }
+
         supportActionBar!!.hide()
     }
 
     fun onLoginClicked(view: View) {
 
-        startActivity(Intent(mContext, HomeActivity::class.java))
-        return
+
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
         val username = binding.inputUsername.text.toString()
         val password = binding.inputPassword.text.toString()
@@ -49,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 if(ProjectUtility.isConnectedToInternet(mContext)) {
                     viewModel.onLoginClicked(UserRequest(username, password))
+
                 }else{
 
                     ProjectUtility.showToastMessage(mContext,"Internet is not available.")
@@ -62,6 +71,10 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this,it.message,Toast.LENGTH_SHORT).show()
                     if (username.equals(it.data.username)) {
 
+                        sharedUtility.saveBoolean(Constants.LOGGED_IN,true)
+                        sharedUtility.saveString(Constants.EMAIL,it.data.email)
+                        sharedUtility.saveString(Constants.USERNAME,it.data.username)
+                        sharedUtility.saveString(Constants.PHONE,it.data.phone)
                         startActivity(Intent(mContext, HomeActivity::class.java))
                     }
                 }

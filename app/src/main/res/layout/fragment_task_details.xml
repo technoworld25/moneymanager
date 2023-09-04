@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:orientation="vertical"
+    tools:context=".ui.task.TaskDetailsFragment">
+
+    <TextView
+        android:textSize="22sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Details" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/projectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Project Name" />
+
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/projectLead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Project Lead" />
+
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/client"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Client Name" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone" />
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/grey_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/Poc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Point of contact" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/pocNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="POC Number" />
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/grey_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/architect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Architect" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/architectNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Architect No" />
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/grey_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Year" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="State" />
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/grey_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/taskName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Name" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/taskDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Details" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/taskState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task State" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/taskAssignee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Assignee" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/taskRequester"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Requester" />
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/grey_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+
+</LinearLayout>

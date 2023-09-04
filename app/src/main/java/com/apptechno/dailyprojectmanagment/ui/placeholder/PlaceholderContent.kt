@@ -1,4 +1,4 @@
-package com.apptechno.dailyprojectmanagment.ui.task.placeholder
+package com.apptechno.dailyprojectmanagment.ui.placeholder
 
 import java.util.ArrayList
 import java.util.HashMap
