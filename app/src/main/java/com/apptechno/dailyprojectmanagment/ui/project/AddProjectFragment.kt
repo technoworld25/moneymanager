@@ -1,6 +1,7 @@
 package com.apptechno.dailyprojectmanagment.ui.project
 
 import android.R
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ class AddProjectFragment : Fragment() {
     lateinit var viewModel: ProjectViewModel
     lateinit var type:String
     lateinit var projectId:String
+    lateinit var mContext:Context
 
     val states = arrayOf("Ongoing","Completed" )
 
@@ -45,6 +47,7 @@ class AddProjectFragment : Fragment() {
 
 
   fun init(){
+      mContext= requireContext()
       (activity as HomeActivity).supportActionBar!!.elevation = 0f
       (activity as HomeActivity)!!.supportActionBar!!.title = "Add New Project"
       (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -125,20 +128,28 @@ class AddProjectFragment : Fragment() {
 
       }else {
           lifecycleScope.launch {
-              if(type.equals("add")){
-                  var project = Project("0",
-                      projectName, client, address, phone, poc, pocNo, architect,
-                      architectNo, assigneeState, selectedYear, selectedState
-                  )
-                viewModel.onSaveProjectClicked(project)
-               }
-              else{
-                  var project = Project(projectId,
-                      projectName, client, address, phone, poc, pocNo, architect,
-                      architectNo, assigneeState, selectedYear, selectedState
-                  )
-                  viewModel.updateProjectClicked(project)
+              if(ProjectUtility.isConnectedToInternet(mContext)) {
+
+                  if(type.equals("add")){
+                      var project = Project("0",
+                          projectName, client, address, phone, poc, pocNo, architect,
+                          architectNo, assigneeState, selectedYear, selectedState
+                      )
+                      viewModel.onSaveProjectClicked(project)
+                  }
+                  else{
+                      var project = Project(projectId,
+                          projectName, client, address, phone, poc, pocNo, architect,
+                          architectNo, assigneeState, selectedYear, selectedState
+                      )
+                      viewModel.updateProjectClicked(project)
+                  }
+              }else{
+
+                  ProjectUtility.showToastMessage(mContext,"Internet is not available.")
+
               }
+
           }
       }
 

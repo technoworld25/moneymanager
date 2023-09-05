@@ -1,6 +1,7 @@
 package com.apptechno.dailyprojectmanagment.ui.task
 
 import android.R
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class AddTaskFragment : Fragment() {
     lateinit var project :String
     lateinit var type:String
     lateinit var taskId :String
+    lateinit var mContext:Context
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -121,13 +123,23 @@ class AddTaskFragment : Fragment() {
 
 
         lifecycleScope.launch {
-           if(type.equals("add")) {
-               val task =Task("0",requestedBy,taskName,taskDescription,state,asignee,id.toInt())
-               viewModel.onSaveTaskClicked(task)
-           }else{
-               val task =Task(taskId,requestedBy,taskName,taskDescription,state,asignee,id.toInt())
-               viewModel.updateTaskClicked(task)
-           }
+
+            if(ProjectUtility.isConnectedToInternet(mContext)) {
+
+                if(type.equals("add")) {
+                    val task =Task("0",requestedBy,taskName,taskDescription,state,asignee,id.toInt())
+                    viewModel.onSaveTaskClicked(task)
+                }else{
+                    val task =Task(taskId,requestedBy,taskName,taskDescription,state,asignee,id.toInt())
+                    viewModel.updateTaskClicked(task)
+                }
+            }else{
+
+                ProjectUtility.showToastMessage(mContext,"Internet is not available.")
+
+            }
+
+
 
         }
     }

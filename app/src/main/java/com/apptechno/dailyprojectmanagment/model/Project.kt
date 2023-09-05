@@ -33,7 +33,7 @@ data class Project(
     @SerializedName("architectno")
     val architectNo:String,
 
-    @SerializedName("asignee")
+    @SerializedName("lead")
     val asignee:String,
 
     @SerializedName("year")

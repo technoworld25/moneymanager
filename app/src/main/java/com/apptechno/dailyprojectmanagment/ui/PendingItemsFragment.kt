@@ -1,5 +1,6 @@
 package com.apptechno.dailyprojectmanagment.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentPendingItemsBinding
+import com.apptechno.dailyprojectmanagment.model.AssignedTaskRequest
 import com.apptechno.dailyprojectmanagment.model.TaskDetails
 import com.apptechno.dailyprojectmanagment.model.TaskResponse
 import com.apptechno.dailyprojectmanagment.ui.task.MyTaskRecyclerViewAdapter
@@ -27,6 +29,7 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
     lateinit var viewModel: TaskViewModel
     lateinit var adapter:TaskDetailsAdapter
     lateinit var taskList:ArrayList<TaskDetails>
+    lateinit var mContext:Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +42,7 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        mContext=requireContext()
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
         (activity as HomeActivity)!!.supportActionBar!!.title = "Pending Items"
         (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -52,7 +55,15 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 lifecycleScope.launch {
-                    viewModel.findTasksBySearch(query!!)
+                    if(ProjectUtility.isConnectedToInternet(mContext)) {
+
+                        viewModel.findTasksBySearch(query!!)
+                    }else{
+
+                        ProjectUtility.showToastMessage(mContext,"Internet is not available.")
+
+                    }
+
                 }
                return false
             }

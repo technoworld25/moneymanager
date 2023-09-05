@@ -91,7 +91,11 @@
         android:id="@+id/assignedTaskFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.AssignedTaskFragment"
         android:label="fragment_assigned_task_list"
-        tools:layout="@layout/fragment_assigned_task_list" />
+        tools:layout="@layout/fragment_assigned_task_list" >
+        <action
+            android:id="@+id/action_assignedTaskFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pendingItemsFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.PendingItemsFragment"

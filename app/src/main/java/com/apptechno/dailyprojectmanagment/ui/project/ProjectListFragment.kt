@@ -1,6 +1,7 @@
 package com.apptechno.dailyprojectmanagment.ui.project
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.DialogFragmentBinding
 import com.apptechno.dailyprojectmanagment.databinding.FragmentProjectItemBinding
 import com.apptechno.dailyprojectmanagment.model.Project
+import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
 import kotlinx.coroutines.launch
 
 class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener{
@@ -28,6 +30,7 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
     lateinit var projects : List<Project>
     lateinit var filteredProjects : List<Project>
     lateinit var adapter: MyProjectRecyclerViewAdapter
+    lateinit var mContext:Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +46,7 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mContext= requireContext()
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
         (activity as HomeActivity)!!.supportActionBar!!.title = "Project List"
         (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -53,7 +57,15 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
        _binding!!.list.layoutManager= LinearLayoutManager(context)
        _binding!!.list. addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         lifecycleScope.launch {
-            projectViewModel.getProjects()
+
+            if(ProjectUtility.isConnectedToInternet(mContext)) {
+                projectViewModel.getProjects()
+            }else{
+
+                ProjectUtility.showToastMessage(mContext,"Internet is not available.")
+
+            }
+
         }
         projectViewModel.projects.observe(this, Observer {
              projects = it.data
@@ -92,9 +104,9 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
         // Initialize dialog
         val dialog = Dialog(requireContext());
         dialog.setContentView(dialogMainBinding.getRoot());
-
+        dialog.show()
         dialogMainBinding.editProjects.setOnClickListener {
-
+            dialog.dismiss()
             val bundle = Bundle().apply {
                 putParcelable("projectResponse", item)
             }
@@ -103,6 +115,7 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
         }
         dialogMainBinding.showTasks.setOnClickListener {
 
+            dialog.dismiss()
             val bundle = Bundle().apply {
                 putString("projectId", item.projectId)
                 putString("projectName", item.projectName)
@@ -111,27 +124,28 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
             }
             navController.navigate(R.id.action_projectListFragment_to_taskFragment,bundle)
         }
-        dialog.show()
-        if(name == "task") {
 
-            val bundle = Bundle().apply {
-                putString("projectId", item.projectId)
-                putString("projectName", item.projectName)
-                putString("requestedBy", item.asignee)
-            }
-            navController.navigate(R.id.action_projectListFragment_to_addTaskFragment, bundle)
-        }else if(name == "editProject"){
-
-
-
-        }else if(name == "editTask"){
-            val bundle = Bundle().apply {
-                putString("projectId", item.projectId)
-                putString("projectName", item.projectName)
-                putString("requestedBy", item.asignee)
-
-            }
-            navController.navigate(R.id.action_projectListFragment_to_taskFragment,bundle)
-        }
+//        if(name == "task") {
+//
+//            val bundle = Bundle().apply {
+//                putString("projectId", item.projectId)
+//                putString("projectName", item.projectName)
+//                putString("requestedBy", item.asignee)
+//            }
+//
+//            navController.navigate(R.id.action_projectListFragment_to_addTaskFragment, bundle)
+//        }else if(name == "editProject"){
+//
+//
+//
+//        }else if(name == "editTask"){
+//            val bundle = Bundle().apply {
+//                putString("projectId", item.projectId)
+//                putString("projectName", item.projectName)
+//                putString("requestedBy", item.asignee)
+//
+//            }
+//            navController.navigate(R.id.action_projectListFragment_to_taskFragment,bundle)
+//        }
     }
 }
