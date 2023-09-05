@@ -8,7 +8,7 @@ class SharedUtility(mContext: Context) {
     private var sharedPreferences:SharedPreferences?=null
 
     init {
-        sharedPreferences= mContext!!.getSharedPreferences("login",Context.MODE_PRIVATE)
+        sharedPreferences= mContext.getSharedPreferences("login",Context.MODE_PRIVATE)
     }
 
     fun getString(key:String?,defaultValue:String?): String? {
@@ -22,7 +22,7 @@ class SharedUtility(mContext: Context) {
         editor.apply()
     }
 
-    fun getInteger(key:String?,defaultValue:Int): Int? {
+    fun getInteger(key:String?,defaultValue:Int): Int {
         return sharedPreferences!!.getInt(key,defaultValue)
 
     }
@@ -33,7 +33,7 @@ class SharedUtility(mContext: Context) {
         editor.apply()
     }
 
-    fun getBoolean(key:String?): Boolean? {
+    fun getBoolean(key:String?): Boolean {
         return sharedPreferences!!.getBoolean(key,false)
 
     }

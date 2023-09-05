@@ -1,6 +1,8 @@
 package com.apptechno.dailyprojectmanagment.ui.task
 
+//noinspection SuspiciousImport
 import android.R
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,33 +10,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.databinding.FragmentAddTaskBinding
 import com.apptechno.dailyprojectmanagment.model.Task
 import com.apptechno.dailyprojectmanagment.model.TaskResponse
-import com.apptechno.dailyprojectmanagment.ui.project.ProjectViewModel
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
 import kotlinx.coroutines.launch
+
 
 class AddTaskFragment : Fragment() {
     private var _binding: FragmentAddTaskBinding? = null
     private val binding get() = _binding!!
-    lateinit var viewModel: TaskViewModel
-    lateinit var id :String
-    lateinit var project :String
-    lateinit var type:String
-    lateinit var taskId :String
-    lateinit var mContext:Context
+    private lateinit var viewModel: TaskViewModel
+    private lateinit var id :String
+    private lateinit var project :String
+    private lateinit var type:String
+    private lateinit var taskId :String
+    private lateinit var mContext:Context
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAddTaskBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
 
@@ -43,12 +45,12 @@ class AddTaskFragment : Fragment() {
         init()
     }
 
-    fun init(){
-        (activity as HomeActivity).supportActionBar!!.elevation = 0f
-        (activity as HomeActivity)!!.supportActionBar!!.title = "Add New Task"
-        (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    private fun init(){
+        (activity as HomeActivity).supportActionBar?.elevation = 0f
+        (activity as HomeActivity).supportActionBar?.title = "Add New Task"
+        (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+        viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
 
         setSpinners()
         showDetailsIfAvailable()
@@ -58,49 +60,51 @@ class AddTaskFragment : Fragment() {
            saveTask()
 
         }
-        viewModel.taskResponse.observe(this, Observer {
+        viewModel.taskResponse.observe(this) {
 
-            ProjectUtility.showToastMessage(requireContext(),it.message)
+            ProjectUtility.showToastMessage(requireContext(), it.message)
 
-        })
-        viewModel.updateTasksResponse.observe(this, Observer {
+        }
+        viewModel.updateTasksResponse.observe(this) {
 
-            ProjectUtility.showToastMessage(requireContext(),it.message)
+            ProjectUtility.showToastMessage(requireContext(), it.message)
 
-        })
+        }
     }
 
-    fun showDetailsIfAvailable(){
+
+    @SuppressLint("SetTextI18n")
+    private fun showDetailsIfAvailable(){
         val customObject = arguments?.getParcelable<TaskResponse>("taskResponse")
 
         id = arguments?.getString("projectId").toString()
         project = arguments?.getString("projectName").toString()
 
-        _binding!!.projectName.text = "Project Name : "+ project
+        _binding!!.projectName.text = "Project Name : $project"
         _binding!!.requestedBy.text = "Requested By :  "+ "Anupam22"
 
         if(customObject != null) {
              type = "edit"
             taskId = customObject.taskid
              id = customObject.id.toString()
-            _binding!!.inputTaskName.setText(customObject!!.taskname)
-            _binding!!.projectName.setText( "Project Name : "+ customObject!!.name)
-            _binding!!.inputTaskDescription.setText(customObject!!.description)
-            _binding!!.requestedBy.setText("Requested By :  "+customObject!!.assigner)
+            _binding!!.inputTaskName.setText(customObject.taskname)
+            _binding!!.projectName.text = "Project Name : "+ customObject.name
+            _binding!!.inputTaskDescription.setText(customObject.description)
+            _binding!!.requestedBy.text = "Requested By :  "+customObject.assigner
             _binding!!.assigneeSpinner.setText(customObject.assignee,false)
             _binding!!.stateSpinner.setText(customObject.state,false)
-            (activity as HomeActivity)!!.supportActionBar!!.title = "Edit Task"
+            (activity as HomeActivity).supportActionBar!!.title = "Edit Task"
 
         }else{
             type ="add"
-            (activity as HomeActivity)!!.supportActionBar!!.title = "Add New Task"
+            (activity as HomeActivity).supportActionBar!!.title = "Add New Task"
         }
 
     }
-    lateinit var assigneesAdapter: ArrayAdapter<String>
-    lateinit var statesAdapter: ArrayAdapter<String>
+    private lateinit var assigneesAdapter: ArrayAdapter<String>
+    private lateinit var statesAdapter: ArrayAdapter<String>
 
-    fun setSpinners(){
+    private fun setSpinners(){
         val assignees = arrayOf("Anupam L","Anupam22")
         assigneesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, assignees)
 
@@ -112,25 +116,25 @@ class AddTaskFragment : Fragment() {
         _binding!!.stateSpinner.setAdapter(statesAdapter)
     }
 
-    fun saveTask(){
+    private fun saveTask(){
         //val projectName = _binding!!.projectName.text.toString()
         val requestedBy = _binding!!.requestedBy.text.toString()
         val taskName = _binding!!.inputTaskName.text.toString()
 
         val taskDescription = _binding!!.inputTaskDescription.text.toString()
         val state = _binding!!.stateSpinner.text.toString()
-        val asignee = _binding!!.assigneeSpinner.text.toString()
+        val assignee = _binding!!.assigneeSpinner.text.toString()
 
 
         lifecycleScope.launch {
 
             if(ProjectUtility.isConnectedToInternet(mContext)) {
 
-                if(type.equals("add")) {
-                    val task =Task("0",requestedBy,taskName,taskDescription,state,asignee,id.toInt())
+                if(type == "add") {
+                    val task =Task("0",requestedBy,taskName,taskDescription,state,assignee,id.toInt())
                     viewModel.onSaveTaskClicked(task)
                 }else{
-                    val task =Task(taskId,requestedBy,taskName,taskDescription,state,asignee,id.toInt())
+                    val task =Task(taskId,requestedBy,taskName,taskDescription,state,assignee,id.toInt())
                     viewModel.updateTaskClicked(task)
                 }
             }else{

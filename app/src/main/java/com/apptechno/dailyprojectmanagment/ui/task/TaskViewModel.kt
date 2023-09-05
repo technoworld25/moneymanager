@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel : ViewModel() {
 
-    private val TAG = "TaskViewModel"
     val taskResponse : LiveData<NetworkResponse<Task>> =MutableLiveData()
     val tasks : LiveData<NetworkResponse<List<TaskResponse>>> =MutableLiveData()
     val updateTasksResponse : LiveData<NetworkResponse<Task>> =MutableLiveData()
@@ -23,8 +22,8 @@ class TaskViewModel : ViewModel() {
         viewModelScope.launch {
             taskResponse as MutableLiveData
             val result = retrofitService?.addTask(taskDetails)
-            if(result!=null && result!!.isSuccessful()){
-                taskResponse.value = result!!.body()
+            if(result!=null && result.isSuccessful){
+                taskResponse.value = result.body()
 
             }
 
@@ -39,7 +38,7 @@ class TaskViewModel : ViewModel() {
         viewModelScope.launch {
 
             val result = retrofitService?.getTasks(GetTaskRequest(projectName))
-            if(result!=null && result!!.isSuccessful()){
+            if(result!=null && result.isSuccessful){
 
                 tasks.value = result.body()
             }
@@ -54,8 +53,8 @@ class TaskViewModel : ViewModel() {
         viewModelScope.launch {
             updateTasksResponse as MutableLiveData
             val result = retrofitService?.updateTask(projectDetails)
-            if (result != null && result!!.isSuccessful()) {
-                updateTasksResponse.value = result!!.body()
+            if (result != null && result.isSuccessful) {
+                updateTasksResponse.value = result.body()
 
             }
 
@@ -71,8 +70,8 @@ class TaskViewModel : ViewModel() {
         viewModelScope.launch {
             assignedTasks as MutableLiveData
             val result = retrofitService?.getAssignedtasks(assignedTaskRequest)
-            if (result != null && result!!.isSuccessful()) {
-                assignedTasks.value = result!!.body()
+            if (result != null && result.isSuccessful) {
+                assignedTasks.value = result.body()
 
             }
 
@@ -89,8 +88,8 @@ class TaskViewModel : ViewModel() {
         viewModelScope.launch {
             pendingTasks as MutableLiveData
             val result = retrofitService?.getSeacrhableTasks(PendingItemsRequest(query))
-            if (result != null && result!!.isSuccessful()) {
-                pendingTasks.value = result!!.body()
+            if (result != null && result.isSuccessful) {
+                pendingTasks.value = result.body()
 
             }
 

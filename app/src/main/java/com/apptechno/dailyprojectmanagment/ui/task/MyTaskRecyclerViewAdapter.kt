@@ -8,11 +8,11 @@ import androidx.core.content.ContextCompat
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentTaskBinding
 import com.apptechno.dailyprojectmanagment.model.TaskResponse
-import com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener
+import com.apptechno.dailyprojectmanagment.ui.project.OnItemClickListener
 
 
 class MyTaskRecyclerViewAdapter(
-     var tasks: List<TaskResponse>,private val listener: onItemClickListener
+     var tasks: List<TaskResponse>,private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
 
     init {

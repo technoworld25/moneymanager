@@ -1,5 +1,6 @@
 package com.apptechno.dailyprojectmanagment.ui.project
 
+//noinspection SuspiciousImport
 import android.R
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apptechno.dailyprojectmanagment.HomeActivity
@@ -25,19 +25,22 @@ class AddProjectFragment : Fragment() {
     private var _binding: FragmentProjectBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var viewModel: ProjectViewModel
-    lateinit var type:String
-    lateinit var projectId:String
-    lateinit var mContext:Context
+    private lateinit var viewModel: ProjectViewModel
+    private lateinit var type:String
+    private lateinit var projectId:String
+    private lateinit var mContext:Context
 
-    val states = arrayOf("Ongoing","Completed" )
+    private val states = arrayOf("Ongoing","Completed" )
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
         _binding = FragmentProjectBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,12 +49,12 @@ class AddProjectFragment : Fragment() {
     }
 
 
-  fun init(){
+  private fun init(){
       mContext= requireContext()
       (activity as HomeActivity).supportActionBar!!.elevation = 0f
-      (activity as HomeActivity)!!.supportActionBar!!.title = "Add New Project"
-      (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-      viewModel = ViewModelProvider(this).get(ProjectViewModel::class.java)
+      (activity as HomeActivity).supportActionBar!!.title = "Add New Project"
+      (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+      viewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
       setSpinners()
       showDetailsIfAvailable()
 
@@ -60,28 +63,27 @@ class AddProjectFragment : Fragment() {
          saveProject()
       }
 
-      viewModel.response.observe(this, Observer {
+      viewModel.response.observe(this) {
 
-          Log.d("SS",it.toString())
-          if(it!=null){
+          if (it != null) {
 
-              ProjectUtility.showToastMessage(requireContext(),it.message)
-
-          }
-      })
-
-      viewModel.updateProjectResponse.observe(this, Observer {
-
-          Log.d("SS",it.toString())
-          if(it!=null){
-
-              ProjectUtility.showToastMessage(requireContext(),it.message)
+              ProjectUtility.showToastMessage(requireContext(), it.message)
 
           }
-      })
+      }
+
+      viewModel.updateProjectResponse.observe(this) {
+
+          Log.d("SS", it.toString())
+          if (it != null) {
+
+              ProjectUtility.showToastMessage(requireContext(), it.message)
+
+          }
+      }
   }
 
-    fun showDetailsIfAvailable(){
+    private fun showDetailsIfAvailable(){
 
         val customObject = arguments?.getParcelable<Project>("projectResponse")
         if(customObject != null){
@@ -95,19 +97,19 @@ class AddProjectFragment : Fragment() {
             _binding?.inputPocNo?.setText(customObject.pocNo)
             _binding?.inputArchitectName?.setText(customObject.architect)
             _binding?.inputArchitectContactNumber?.setText(customObject.architectNo)
-            _binding!!.responsibiltySpinner?.setText(customObject.asignee,false)
-            _binding!!.yearSpinner?.setText(customObject.year,false)
-            _binding!!.stateSpinner?.setText(customObject.state,false)
-            (activity as HomeActivity)!!.supportActionBar!!.title = "Edit Project"
+            _binding!!.responsibiltySpinner.setText(customObject.asignee,false)
+            _binding!!.yearSpinner.setText(customObject.year,false)
+            _binding!!.stateSpinner.setText(customObject.state,false)
+            (activity as HomeActivity).supportActionBar!!.title = "Edit Project"
 
         }else{
             type = "add"
-            (activity as HomeActivity)!!.supportActionBar!!.title = "Add New Project"
+            (activity as HomeActivity).supportActionBar!!.title = "Add New Project"
 
         }
     }
 
-  fun saveProject(){
+  private fun saveProject(){
       val projectName = _binding?.inputProjectname?.text.toString()
       val client = _binding?.inputClientName?.text.toString()
       val phone = _binding?.inputContactNumber?.text.toString()
@@ -120,9 +122,9 @@ class AddProjectFragment : Fragment() {
       val selectedState = _binding?.stateSpinner?.text.toString()
       val assigneeState = _binding?.responsibiltySpinner?.text.toString()
 
-      if (projectName.isNullOrEmpty() || client.isNullOrEmpty() || address.isNullOrEmpty()
-          && phone.isNullOrEmpty() || poc.isNullOrEmpty() || pocNo.isNullOrEmpty()
-          && architect.isNullOrEmpty() || architectNo.isNullOrEmpty() || selectedYear.isNullOrEmpty() || assigneeState.isNullOrEmpty()){
+      if (projectName.isEmpty() || client.isEmpty() || address.isEmpty()
+          && phone.isEmpty() || poc.isEmpty() || pocNo.isEmpty()
+          && architect.isEmpty() || architectNo.isEmpty() || selectedYear.isEmpty() || assigneeState.isEmpty()){
 
           ProjectUtility.showToastMessage(requireContext(),"Please fill project details.")
 
@@ -130,15 +132,15 @@ class AddProjectFragment : Fragment() {
           lifecycleScope.launch {
               if(ProjectUtility.isConnectedToInternet(mContext)) {
 
-                  if(type.equals("add")){
-                      var project = Project("0",
+                  if(type == "add"){
+                      val project = Project("0",
                           projectName, client, address, phone, poc, pocNo, architect,
                           architectNo, assigneeState, selectedYear, selectedState
                       )
                       viewModel.onSaveProjectClicked(project)
                   }
                   else{
-                      var project = Project(projectId,
+                      val project = Project(projectId,
                           projectName, client, address, phone, poc, pocNo, architect,
                           architectNo, assigneeState, selectedYear, selectedState
                       )
@@ -155,8 +157,8 @@ class AddProjectFragment : Fragment() {
 
   }
 
-    fun setSpinners(){
-        getResources().getStringArray(india_states);
+    private fun setSpinners(){
+        resources.getStringArray(india_states)
         val stateAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             context!!,
             R.layout.simple_spinner_item,

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 class ProjectViewModel : ViewModel() {
 
 
-    private val TAG = "ProjectViewModel"
 
     val response : LiveData<NetworkResponse<Project>> =MutableLiveData()
     val projects : LiveData<NetworkResponse<List<Project>>> =MutableLiveData()
@@ -24,8 +23,8 @@ class ProjectViewModel : ViewModel() {
         viewModelScope.launch {
             response as MutableLiveData
             val result = retrofitService?.registerProject(projectDetails)
-            if(result!=null && result!!.isSuccessful()){
-                response.value = result!!.body()
+            if(result!=null && result.isSuccessful){
+                response.value = result.body()
 
             }
 
@@ -39,7 +38,7 @@ class ProjectViewModel : ViewModel() {
         viewModelScope.launch {
 
             val result = retrofitService?.getAllProjects()
-            if(result!=null && result!!.isSuccessful()){
+            if(result!=null && result.isSuccessful){
 
                projects.value = result.body()
             }else{
@@ -59,8 +58,8 @@ class ProjectViewModel : ViewModel() {
         viewModelScope.launch {
             updateProjectResponse as MutableLiveData
             val result = retrofitService?.updateProject(projectDetails)
-            if (result != null && result!!.isSuccessful()) {
-                updateProjectResponse.value = result!!.body()
+            if (result != null && result.isSuccessful) {
+                updateProjectResponse.value = result.body()
 
             }
 

@@ -5,17 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.apptechno.dailyprojectmanagment.R
-import com.apptechno.dailyprojectmanagment.databinding.FragmentAddTaskBinding
 import com.apptechno.dailyprojectmanagment.databinding.FragmentTaskDetailsBinding
 import com.apptechno.dailyprojectmanagment.model.TaskDetails
-import com.apptechno.dailyprojectmanagment.model.TaskResponse
+
 
 class TaskDetailsFragment : Fragment() {
 
-    lateinit var _binding:FragmentTaskDetailsBinding
+    private lateinit var _binding:FragmentTaskDetailsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTaskDetailsBinding.inflate(inflater, container, false)
         val root: View = _binding.root
         return root
@@ -24,23 +22,37 @@ class TaskDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val customObject = arguments?.getParcelable<TaskDetails>("taskResponse")
-        _binding.projectName.setText( "Project Name: "+customObject!!.name)
-        _binding.projectLead.setText("Project Lead: "+ customObject!!.lead)
-        _binding.client.setText("Client: "+ customObject!!.client)
-        _binding.phone.setText("Phone: "+ customObject!!.phone)
-        _binding.Poc.setText("Poc: "+ customObject!!.poc)
-        _binding.pocNo.setText("Poc No: "+ customObject!!.pocNo)
-        _binding.architect.setText("Architect: "+ customObject!!.architect)
-        _binding.architectNo.setText("Architect No: "+ customObject!!.architectNo)
-        _binding.state.setText("Project State: "+ customObject!!.projectState)
-        _binding.year.setText("Year: "+ customObject!!.year)
+        val projectName =  "Project Name: "+customObject?.name
+        val projectLead = "Project Lead: "+ customObject?.lead
+        val client = "Client: "+ customObject?.client
+        val phone = "Phone: "+ customObject?.phone
+        val poc = "Poc: "+ customObject?.poc
+        val pocNo = "Poc No: "+ customObject?.pocNo
+        val architect = "Architect: "+ customObject?.architect
+        val architectNo = "Architect: "+ customObject?.architect
+        val state ="Project State: "+ customObject?.projectState
+        val year = "Year: "+ customObject?.year
+        _binding.projectName.text=projectName
+        _binding.projectLead.text= projectLead
+        _binding.client.text=client
+        _binding.phone.text=phone
+        _binding.Poc.text=poc
+        _binding.pocNo.text=pocNo
+        _binding.architect.text=architect
+        _binding.architectNo.text=architectNo
+        _binding.state.text=state
+        _binding.year.text=year
 
-
-        _binding.taskName.setText("Task Name: "+ customObject!!.taskname)
-        _binding.taskDetails.setText("Task Details: "+ customObject!!.description)
-        _binding.taskState.setText("Task State: "+ customObject!!.taskstate)
-        _binding.taskAssignee.setText("Task Assignee: "+ customObject!!.assignee)
-        _binding.taskRequester.setText("Task Requester: "+ customObject!!.assigner)
+         val taskName = "Task Name: "+ customObject?.taskname
+         val taskDetails = "Task Details: "+ customObject?.description
+         val taskState = "Task State: "+ customObject?.taskstate
+         val taskAssignee = "Task Assignee: "+ customObject?.assignee
+         val taskRequester = "Task Requester: "+ customObject?.assigner
+        _binding.taskName.text= taskName
+        _binding.taskDetails.text = taskDetails
+        _binding.taskState.text=taskState
+        _binding.taskAssignee.text= taskAssignee
+        _binding.taskRequester.text= taskRequester
 
 
     }

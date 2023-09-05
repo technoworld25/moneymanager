@@ -9,7 +9,7 @@ import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentProjectListBinding
 import com.apptechno.dailyprojectmanagment.model.Project
 
-interface onItemClickListener{
+interface OnItemClickListener{
     fun onItemClick(position:Int)
 
 }
@@ -17,7 +17,7 @@ interface onItemClickListener{
 
 
 class MyProjectRecyclerViewAdapter(
-    private var values: List<Project>, private val listener: onItemClickListener
+    private var values: List<Project>, private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<MyProjectRecyclerViewAdapter.ViewHolder>() {
 
     private val projectList = ArrayList(values)

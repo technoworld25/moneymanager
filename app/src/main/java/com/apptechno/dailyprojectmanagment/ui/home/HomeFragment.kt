@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
@@ -31,8 +30,7 @@ class HomeFragment : Fragment() {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,13 +38,11 @@ class HomeFragment : Fragment() {
         init()
     }
 
-    fun init(){
+    private fun init(){
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
-        (activity as HomeActivity)!!.supportActionBar!!.title = "Daily Task Manager"
-        (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        (activity as HomeActivity).supportActionBar!!.title = "Daily Task Manager"
+        (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
         val textView: TextView = binding.textHome
 
         val sharedUtility = SharedUtility(requireContext())
@@ -58,7 +54,7 @@ class HomeFragment : Fragment() {
     private fun setNavigations(){
 
         val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
 
         binding.btnAdProject.setOnClickListener {
@@ -88,25 +84,18 @@ class HomeFragment : Fragment() {
                 putString("type","editTask" )
 
             }
-            val navHostFragment =
-                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
-            val navController = navHostFragment.navController
+
             navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
         }
 
         binding.btnAssignedTasks.setOnClickListener {
 
-            val navHostFragment =
-                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
-            val navController = navHostFragment.navController
             navController.navigate(R.id.action_nav_home_to_assignedTaskFragment)
         }
 
         binding.btnpendingItems.setOnClickListener {
 
-            val navHostFragment =
-                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
-            val navController = navHostFragment.navController
+
             navController.navigate(R.id.action_nav_home_to_pendingItemsFragment)
         }
 

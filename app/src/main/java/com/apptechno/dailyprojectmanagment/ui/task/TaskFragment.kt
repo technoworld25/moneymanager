@@ -7,35 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentTaskListBinding
-import com.apptechno.dailyprojectmanagment.model.AssignedTaskRequest
-import com.apptechno.dailyprojectmanagment.model.Project
 import com.apptechno.dailyprojectmanagment.model.TaskResponse
-import com.apptechno.dailyprojectmanagment.ui.project.MyProjectRecyclerViewAdapter
-import com.apptechno.dailyprojectmanagment.ui.project.ProjectViewModel
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
 import kotlinx.coroutines.launch
 
 
-class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener {
-    lateinit var _binding: FragmentTaskListBinding
-    private val binding get() = _binding!!
-    lateinit var viewModel: TaskViewModel
-    lateinit var tasks : List<TaskResponse>
-    lateinit var filteredTasks : List<TaskResponse>
-    lateinit var adapter: MyTaskRecyclerViewAdapter
-    lateinit var mContext:Context
+class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.OnItemClickListener {
+    private lateinit var _binding: FragmentTaskListBinding
+    private val binding get() = _binding
+    private lateinit var viewModel: TaskViewModel
+    private lateinit var tasks : List<TaskResponse>
+    private lateinit var filteredTasks : List<TaskResponse>
+    private lateinit var adapter: MyTaskRecyclerViewAdapter
+    private lateinit var mContext:Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,7 +40,7 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.o
 
         val states = arrayOf("Ongoing","Completed")
         val statesAdapter: ArrayAdapter<String> = ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item, states)
-        _binding!!.taskStateSpinner.setAdapter(statesAdapter)
+        _binding.taskStateSpinner.setAdapter(statesAdapter)
         statesAdapter.filter.filter("")
     }
 
@@ -56,8 +51,8 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.o
         val projectName = arguments?.getString("projectName").toString()
         val projectId = arguments?.getString("projectId").toString()
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
-        (activity as HomeActivity)!!.supportActionBar!!.title = "Get Tasks"
-        (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        (activity as HomeActivity).supportActionBar!!.title = "Get Tasks"
+        (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         lifecycleScope.launch {
@@ -72,22 +67,22 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.o
 
         }
 
-        viewModel.tasks.observe(this, Observer {
-             tasks = it.data
-            filteredTasks= tasks
-            val adapter = MyTaskRecyclerViewAdapter(tasks,this)
+        viewModel.tasks.observe(this) {
+            tasks = it.data
+            filteredTasks = tasks
+            val adapter = MyTaskRecyclerViewAdapter(tasks, this)
             _binding.list.adapter = adapter
-            ProjectUtility.showToastMessage(requireContext(),it.message)
+            ProjectUtility.showToastMessage(requireContext(), it.message)
 
-        })
+        }
 
-        _binding!!.taskStateSpinner.setOnItemClickListener { parent, view, position, id ->
+        _binding.taskStateSpinner.setOnItemClickListener { parent, _, position, _ ->
 
             val selectedItem = parent.getItemAtPosition(position) as String
             filteredTasks = tasks.filter { it.state == selectedItem}
             adapter = MyTaskRecyclerViewAdapter(filteredTasks,this)
 
-            _binding!!.list.adapter = adapter
+            _binding.list.adapter = adapter
 
         }
 
@@ -98,7 +93,7 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.o
                 putString("projectName",projectName)
             }
             val navHostFragment =
-                requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
             val navController = navHostFragment.navController
             navController.navigate(R.id.action_taskFragment_to_addTaskFragment,bundle)
 
@@ -114,7 +109,7 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.o
         }
 
         val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(R.id.action_taskFragment_to_addTaskFragment,bundle)
 

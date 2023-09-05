@@ -13,8 +13,6 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    private val TAG = "AuthViewModel"
-
     val response : LiveData<NetworkResponse<User>> =MutableLiveData()
 
 
@@ -23,8 +21,8 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             response as MutableLiveData
             val result = retrofitService?.loginUser(userData)
-            if(result!=null && result!!.isSuccessful()){
-                response.value = result!!.body()
+            if(result!=null && result.isSuccessful){
+                response.value = result.body()
 
             }
 
@@ -38,8 +36,8 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             response as MutableLiveData
             val result = retrofitService?.registerUser(userData)
-            if(result!=null && result!!.isSuccessful()){
-                response.value = result!!.body()
+            if(result!=null && result.isSuccessful){
+                response.value = result.body()
 
             }
         }

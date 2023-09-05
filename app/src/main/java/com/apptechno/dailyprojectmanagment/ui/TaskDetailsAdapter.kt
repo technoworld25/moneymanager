@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.apptechno.dailyprojectmanagment.databinding.FragmentAssignedTaskBinding
 import com.apptechno.dailyprojectmanagment.model.TaskDetails
-import com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener
+import com.apptechno.dailyprojectmanagment.ui.project.OnItemClickListener
 
 
 class TaskDetailsAdapter(
-    private val values: List<TaskDetails>,private val listener: onItemClickListener
+    private val values: List<TaskDetails>,private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<TaskDetailsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

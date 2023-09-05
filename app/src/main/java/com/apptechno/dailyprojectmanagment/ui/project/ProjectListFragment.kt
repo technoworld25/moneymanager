@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -22,24 +21,23 @@ import com.apptechno.dailyprojectmanagment.model.Project
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
 import kotlinx.coroutines.launch
 
-class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.project.onItemClickListener{
+class ProjectListFragment : Fragment(), OnItemClickListener{
 
     private var _binding: FragmentProjectItemBinding? = null
     private val binding get() = _binding!!
-    lateinit var projectViewModel: ProjectViewModel
-    lateinit var projects : List<Project>
-    lateinit var filteredProjects : List<Project>
-    lateinit var adapter: MyProjectRecyclerViewAdapter
-    lateinit var mContext:Context
+    private lateinit var projectViewModel: ProjectViewModel
+    private lateinit var projects : List<Project>
+    private lateinit var filteredProjects : List<Project>
+    private lateinit var adapter: MyProjectRecyclerViewAdapter
+    private lateinit var mContext:Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentProjectItemBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
 
     }
 
@@ -48,12 +46,12 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
 
         mContext= requireContext()
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
-        (activity as HomeActivity)!!.supportActionBar!!.title = "Project List"
-        (activity as HomeActivity)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        (activity as HomeActivity).supportActionBar!!.title = "Project List"
+        (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         projects = ArrayList()
         filteredProjects = ArrayList()
-        projectViewModel = ViewModelProvider(this).get(ProjectViewModel::class.java)
+        projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
        _binding!!.list.layoutManager= LinearLayoutManager(context)
        _binding!!.list. addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         lifecycleScope.launch {
@@ -67,14 +65,14 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
             }
 
         }
-        projectViewModel.projects.observe(this, Observer {
-             projects = it.data
-             filteredProjects= projects
-             adapter = MyProjectRecyclerViewAdapter(projects,this)
+        projectViewModel.projects.observe(this) {
+            projects = it.data
+            filteredProjects = projects
+            adapter = MyProjectRecyclerViewAdapter(projects, this)
             _binding!!.list.adapter = adapter
-        })
+        }
 
-        _binding!!.projectStateSpinner.setOnItemClickListener { parent, view, position, id ->
+        _binding!!.projectStateSpinner.setOnItemClickListener { parent, _, position, _ ->
 
              val selectedItem = parent.getItemAtPosition(position) as String
              filteredProjects = projects.filter { it.state == selectedItem}
@@ -95,15 +93,14 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
 
     override fun onItemClick(position: Int) {
         val item = filteredProjects[position-1]
-        val name = arguments?.getString("type").toString()
         val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(com.apptechno.dailyprojectmanagment.R.id.nav_host) as NavHostFragment
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         val dialogMainBinding: DialogFragmentBinding = DialogFragmentBinding.inflate(LayoutInflater.from(requireContext()))
 
         // Initialize dialog
-        val dialog = Dialog(requireContext());
-        dialog.setContentView(dialogMainBinding.getRoot());
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(dialogMainBinding.root)
         dialog.show()
         dialogMainBinding.editProjects.setOnClickListener {
             dialog.dismiss()
@@ -130,7 +127,7 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
 //            val bundle = Bundle().apply {
 //                putString("projectId", item.projectId)
 //                putString("projectName", item.projectName)
-//                putString("requestedBy", item.asignee)
+//                putString("requestedBy", item.assignee)
 //            }
 //
 //            navController.navigate(R.id.action_projectListFragment_to_addTaskFragment, bundle)
@@ -142,7 +139,7 @@ class ProjectListFragment : Fragment(), com.apptechno.dailyprojectmanagment.ui.p
 //            val bundle = Bundle().apply {
 //                putString("projectId", item.projectId)
 //                putString("projectName", item.projectName)
-//                putString("requestedBy", item.asignee)
+//                putString("requestedBy", item.assignee)
 //
 //            }
 //            navController.navigate(R.id.action_projectListFragment_to_taskFragment,bundle)
