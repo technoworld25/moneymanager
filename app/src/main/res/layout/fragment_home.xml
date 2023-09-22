@@ -77,19 +77,19 @@
 
             </com.google.android.material.button.MaterialButton>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnGetProjects"
-                android:drawableTop="@drawable/add_project"
-                android:text="Update Projects"
-                 style="@style/HomeImageButtonStyle">
-            </com.google.android.material.button.MaterialButton>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnGetProjects"-->
+<!--                android:drawableTop="@drawable/add_project"-->
+<!--                android:text="Update Projects"-->
+<!--                 style="@style/HomeImageButtonStyle">-->
+<!--            </com.google.android.material.button.MaterialButton>-->
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/HomeImageButtonStyle"
-                android:text="Update Tasks"
-                android:drawableTop="@drawable/tasklist"
-                android:id="@+id/btnGetTasks">
-            </com.google.android.material.button.MaterialButton>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                style="@style/HomeImageButtonStyle"-->
+<!--                android:text="Update Tasks"-->
+<!--                android:drawableTop="@drawable/tasklist"-->
+<!--                android:id="@+id/btnGetTasks">-->
+<!--            </com.google.android.material.button.MaterialButton>-->
 
 
         </LinearLayout>

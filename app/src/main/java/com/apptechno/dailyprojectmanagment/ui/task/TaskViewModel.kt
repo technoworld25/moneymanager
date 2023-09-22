@@ -17,6 +17,9 @@ class TaskViewModel : ViewModel() {
     val assignedTasks : LiveData<NetworkResponse<List<TaskResponse>>> =MutableLiveData()
     val pendingTasks : LiveData<NetworkResponse<List<TaskDetails>>> =MutableLiveData()
 
+    val users : LiveData<NetworkResponse<List<User>>> =MutableLiveData()
+
+
     fun onSaveTaskClicked(taskDetails: Task){
         val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
         viewModelScope.launch {
@@ -95,6 +98,18 @@ class TaskViewModel : ViewModel() {
 
         }
 
+    }
+
+    fun getUsers(){
+        val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
+        viewModelScope.launch {
+            users as MutableLiveData
+            val result = retrofitService?.getUsers()
+            if(result!=null && result.isSuccessful){
+                users.value = result.body()
+
+            }
+        }
     }
 
 

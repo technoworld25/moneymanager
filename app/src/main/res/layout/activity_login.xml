@@ -25,6 +25,7 @@
         android:hint="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:boxStrokeColor="@color/green"
         app:layout_constraintTop_toBottomOf="@id/imageView">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputUsername"
@@ -60,6 +61,7 @@
     <TextView
         android:id="@+id/createNewAcnt"
         style="@style/NormalText"
+        android:minHeight="48dp"
         android:onClick="onCreateNewAccountClicked"
         android:text="Not registered? Create a new account"
         android:textAlignment="center"

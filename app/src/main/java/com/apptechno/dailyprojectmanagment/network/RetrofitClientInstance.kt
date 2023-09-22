@@ -6,7 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitClientInstance {
   companion object {
       private var retrofit: Retrofit? = null
-      private val BASE_URL = "http://192.168.1.117:81/dailydatatracker/"
+     //private val BASE_URL = "http://192.168.1.117:81/dailydatatracker/"
+      private val BASE_URL="https://vlengineers.com/dailytracker/"
+     // private val BASE_URL="http://192.168.0.227:81/dailydatatracker/"
 
       fun getRetrofitInstance(): Retrofit? {
           if (retrofit == null) {

@@ -10,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.databinding.FragmentAddTaskBinding
 import com.apptechno.dailyprojectmanagment.model.Task
 import com.apptechno.dailyprojectmanagment.model.TaskResponse
+import com.apptechno.dailyprojectmanagment.model.User
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
 import kotlinx.coroutines.launch
 
@@ -49,7 +51,7 @@ class AddTaskFragment : Fragment() {
         (activity as HomeActivity).supportActionBar?.elevation = 0f
         (activity as HomeActivity).supportActionBar?.title = "Add New Task"
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        mContext = requireContext()
         viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
 
         setSpinners()
@@ -105,10 +107,25 @@ class AddTaskFragment : Fragment() {
     private lateinit var statesAdapter: ArrayAdapter<String>
 
     private fun setSpinners(){
-        val assignees = arrayOf("Anupam L","Anupam22")
-        assigneesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, assignees)
+        var assignees = emptyArray<String>()
+        lifecycleScope.launch {
+            viewModel.getUsers()
+        }
+        viewModel.users.observe(this, Observer {
+            val userlist = ArrayList<String>()
+            it.data.forEach {
+                userlist.add(it.username)
+            }
 
-        _binding!!.assigneeSpinner.setAdapter(assigneesAdapter)
+            val userNameArray = userlist.map { it }.toTypedArray()
+            assignees= userNameArray
+
+            assigneesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, assignees)
+
+            _binding!!.assigneeSpinner.setAdapter(assigneesAdapter)
+        })
+
+
 
         val states = arrayOf("New","In Progress","Completed")
         statesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, states)

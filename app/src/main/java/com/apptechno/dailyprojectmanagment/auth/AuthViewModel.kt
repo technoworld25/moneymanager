@@ -15,7 +15,6 @@ class AuthViewModel : ViewModel() {
 
     val response : LiveData<NetworkResponse<User>> =MutableLiveData()
 
-
     fun onLoginClicked(userData: UserRequest){
         val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
         viewModelScope.launch {
@@ -43,4 +42,6 @@ class AuthViewModel : ViewModel() {
         }
 
     }
+
+
 }

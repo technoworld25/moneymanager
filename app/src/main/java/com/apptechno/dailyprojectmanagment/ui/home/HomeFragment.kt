@@ -70,23 +70,23 @@ class HomeFragment : Fragment() {
             navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
 
         }
-
-        binding.btnGetProjects.setOnClickListener {
-            val bundle = Bundle().apply {
-                putString("type","editProject" )
-
-            }
-            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
-        }
-
-        binding.btnGetTasks.setOnClickListener {
-            val bundle = Bundle().apply {
-                putString("type","editTask" )
-
-            }
-
-            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
-        }
+//
+//        binding.btnGetProjects.setOnClickListener {
+//            val bundle = Bundle().apply {
+//                putString("type","editProject" )
+//
+//            }
+//            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
+//        }
+//
+//        binding.btnGetTasks.setOnClickListener {
+//            val bundle = Bundle().apply {
+//                putString("type","editTask" )
+//
+//            }
+//
+//            navController.navigate(R.id.action_nav_home_to_projectListFragment,bundle)
+//        }
 
         binding.btnAssignedTasks.setOnClickListener {
 
