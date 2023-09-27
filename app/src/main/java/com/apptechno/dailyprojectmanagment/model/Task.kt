@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Task(
     @SerializedName("taskid")
-    val taskid:String,
+    val taskid:Int,
 
     @SerializedName("assigner")
     val assigner:String,
@@ -20,8 +20,8 @@ data class Task(
     @SerializedName("description")
     val description:String,
 
-    @SerializedName("state")
-    val state : String,
+    @SerializedName("taskstate")
+    val taskstate : String,
 
     @SerializedName("assignee")
     val assignee: String,

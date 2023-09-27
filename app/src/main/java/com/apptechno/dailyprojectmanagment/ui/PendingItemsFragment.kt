@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
@@ -91,9 +92,9 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
             putParcelable("taskResponse", item)
         }
 
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+//        val navHostFragment =
+//            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+        val navController = requireActivity().findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.action_pendingItemsFragment_to_taskDetailsFragment,bundle)
 
 

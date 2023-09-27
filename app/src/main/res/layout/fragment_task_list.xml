@@ -29,7 +29,19 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
+    <RelativeLayout
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+        </ProgressBar>
+    </RelativeLayout>
     <RelativeLayout
 
         android:layout_width="match_parent"

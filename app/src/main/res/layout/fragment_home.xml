@@ -66,12 +66,12 @@
                 android:id="@+id/btnAdProject"
                 android:drawableTop="@drawable/projects"
                 android:text="Add Project"
-               style="@style/HomeImageButtonStyle">
+                style="@style/HomeImageButtonStyle">
             </com.google.android.material.button.MaterialButton>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAdTask"
-                 style="@style/HomeImageButtonStyle"
+                style="@style/HomeImageButtonStyle"
                 android:drawableTop="@drawable/task"
                 android:text="Add Task">
 
@@ -106,9 +106,6 @@
         android:id="@+id/btnpendingItems"
         style="@style/ButtonStyle">
     </com.google.android.material.button.MaterialButton>
-
-
-
 
 </LinearLayout>
 </ScrollView>

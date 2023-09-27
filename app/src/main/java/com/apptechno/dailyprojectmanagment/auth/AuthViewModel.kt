@@ -43,5 +43,17 @@ class AuthViewModel : ViewModel() {
 
     }
 
+    fun onEditProfileClicked(userData: User){
+        val retrofitService = RetrofitClientInstance.getRetrofitInstance()?.create(GetDataService::class.java)
+        viewModelScope.launch {
+            response as MutableLiveData
+            val result = retrofitService?.editProfile()
+            if(result!=null && result.isSuccessful){
+                response.value = result.body()
+
+            }
+        }
+    }
+
 
 }

@@ -4,8 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<LinearLayout
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+    </ProgressBar>
+
+    <LinearLayout
     android:layout_marginBottom="30dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -153,5 +165,6 @@
         style="@style/ButtonStyle"
         android:text="Save" />
 </LinearLayout>
+</RelativeLayout>
 </ScrollView>
 

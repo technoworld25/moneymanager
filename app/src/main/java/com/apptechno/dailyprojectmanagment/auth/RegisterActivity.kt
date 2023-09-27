@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
 
                 if(ProjectUtility.isConnectedToInternet(mContext)) {
-                viewModel.onRegisterClicked(User(username, email, phone, password)) }else{
+                viewModel.onRegisterClicked(User("0",username, email, phone, password)) }else{
 
                     ProjectUtility.showToastMessage(mContext,"Internet is not available.")
                 }

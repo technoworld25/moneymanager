@@ -26,7 +26,7 @@ interface GetDataService {
     @Headers("X-Auth-Key:daily2023")
     suspend fun getAllProjects(): Response<NetworkResponse<List<Project>>>
 
-    @POST("saveTask.php")
+    @POST("savetask.php")
     @Headers("X-Auth-Key:daily2023")
     suspend fun addTask(@Body task: Task): Response<NetworkResponse<Task>>
 
@@ -38,7 +38,7 @@ interface GetDataService {
     @Headers("X-Auth-Key:daily2023")
     suspend fun updateProject(@Body projectDetails: Project): Response<NetworkResponse<Project>>
 
-    @POST("updateTask.php")
+    @POST("updatetask.php")
     @Headers("X-Auth-Key:daily2023")
     suspend fun updateTask(@Body task: Task): Response<NetworkResponse<Task>>
 
@@ -53,6 +53,10 @@ interface GetDataService {
     @POST("users.php")
     @Headers("X-Auth-Key:daily2023")
     suspend fun getUsers(): Response<NetworkResponse<List<User>>>
+
+    @POST("updateprofile.php")
+    @Headers("X-Auth-Key:daily2023")
+    suspend fun editProfile(): Response<NetworkResponse<User>>
 
 
 

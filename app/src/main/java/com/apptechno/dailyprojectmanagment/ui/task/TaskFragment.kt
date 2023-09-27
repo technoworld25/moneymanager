@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
@@ -53,14 +54,14 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.O
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
         (activity as HomeActivity).supportActionBar!!.title = "Get Tasks"
         (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
+        binding.progressBar.visibility= View.VISIBLE
         viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         lifecycleScope.launch {
             if(ProjectUtility.isConnectedToInternet(mContext)) {
 
                 viewModel.getTasks(projectName)
             }else{
-
+                binding.progressBar.visibility= View.GONE
                 ProjectUtility.showToastMessage(mContext,"Internet is not available.")
 
             }
@@ -70,6 +71,7 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.O
         viewModel.tasks.observe(this) {
             tasks = it.data
             filteredTasks = tasks
+            binding.progressBar.visibility= View.GONE
             val adapter = MyTaskRecyclerViewAdapter(tasks, this)
             _binding.list.adapter = adapter
             ProjectUtility.showToastMessage(requireContext(), it.message)
@@ -92,9 +94,8 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.O
                 putString("projectId",projectId)
                 putString("projectName",projectName)
             }
-            val navHostFragment =
-                requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-            val navController = navHostFragment.navController
+
+            val navController = requireActivity().findNavController(R.id.nav_host_fragment)
             navController.navigate(R.id.action_taskFragment_to_addTaskFragment,bundle)
 
         }
@@ -108,9 +109,8 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.O
             putParcelable("taskResponse", item)
         }
 
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+
+        val navController = requireActivity().findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.action_taskFragment_to_addTaskFragment,bundle)
 
     }

@@ -10,7 +10,8 @@ data class UserRequest(
 }
 
 data class User(
-
+    @SerializedName("id")
+    val id:String,
     @SerializedName("username")
     val username:String,
     @SerializedName("email")

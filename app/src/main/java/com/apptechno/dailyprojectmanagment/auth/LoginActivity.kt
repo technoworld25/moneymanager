@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
        val login= sharedUtility.getBoolean(Constants.LOGGED_IN)
         if (login){
             startActivity(Intent(mContext, HomeActivity::class.java))
+            finish()
         }
 
         supportActionBar!!.hide()
@@ -68,8 +69,10 @@ class LoginActivity : AppCompatActivity() {
 
                         sharedUtility.saveBoolean(Constants.LOGGED_IN, true)
                         sharedUtility.saveString(Constants.EMAIL, it.data.email)
+                        sharedUtility.saveString(Constants.EMAIL, it.data.email)
                         sharedUtility.saveString(Constants.USERNAME, it.data.username)
                         sharedUtility.saveString(Constants.PHONE, it.data.phone)
+                        sharedUtility.saveString(Constants.PASSWORD, it.data.password)
                         startActivity(Intent(mContext, HomeActivity::class.java))
                     }
                 }

@@ -39,9 +39,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun init(){
-        (activity as HomeActivity).supportActionBar!!.elevation = 0f
-        (activity as HomeActivity).supportActionBar!!.title = "Daily Task Manager"
-        (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        (activity as HomeActivity).supportActionBar!!.elevation = 0f
+//        (activity as HomeActivity).supportActionBar!!.title = "Daily Task Manager"
+//        (activity as HomeActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        (activity as HomeActivity).supportActionBar!!.setHomeButtonEnabled(true);
 
         val textView: TextView = binding.textHome
 
@@ -54,7 +55,7 @@ class HomeFragment : Fragment() {
     private fun setNavigations(){
 
         val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         binding.btnAdProject.setOnClickListener {

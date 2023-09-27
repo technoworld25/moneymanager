@@ -6,6 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+   <ProgressBar
+       android:id="@+id/progressBar"
+       android:visibility="gone"
+       android:layout_centerInParent="true"
+       android:layout_width="50dp"
+       android:layout_height="50dp">
+
+   </ProgressBar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -85,5 +98,6 @@
             android:text="Save" />
 
     </LinearLayout>
+   </RelativeLayout>
 </ScrollView>
 

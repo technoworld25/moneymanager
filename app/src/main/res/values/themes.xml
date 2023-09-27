@@ -20,11 +20,6 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.DailyProjectManagment.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
 
     <style name="ButtonStyle" parent="ThemeOverlay.Material3.Button">
         <item name="backgroundColor">@color/green</item>

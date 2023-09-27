@@ -17,8 +17,9 @@ import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.databinding.FragmentAddTaskBinding
 import com.apptechno.dailyprojectmanagment.model.Task
 import com.apptechno.dailyprojectmanagment.model.TaskResponse
-import com.apptechno.dailyprojectmanagment.model.User
+import com.apptechno.dailyprojectmanagment.utility.Constants
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
+import com.apptechno.dailyprojectmanagment.utility.SharedUtility
 import kotlinx.coroutines.launch
 
 
@@ -74,7 +75,7 @@ class AddTaskFragment : Fragment() {
         }
     }
 
-
+    var username =""
     @SuppressLint("SetTextI18n")
     private fun showDetailsIfAvailable(){
         val customObject = arguments?.getParcelable<TaskResponse>("taskResponse")
@@ -82,8 +83,11 @@ class AddTaskFragment : Fragment() {
         id = arguments?.getString("projectId").toString()
         project = arguments?.getString("projectName").toString()
 
+        val sharedUtilty = SharedUtility(requireContext())
+        username = sharedUtilty.getString(Constants.USERNAME,"").toString()
+
         _binding!!.projectName.text = "Project Name : $project"
-        _binding!!.requestedBy.text = "Requested By :  "+ "Anupam22"
+        _binding!!.requestedBy.text = "Requested By :  "+ username
 
         if(customObject != null) {
              type = "edit"
@@ -125,15 +129,15 @@ class AddTaskFragment : Fragment() {
             _binding!!.assigneeSpinner.setAdapter(assigneesAdapter)
         })
 
-
-
-        val states = arrayOf("New","In Progress","Completed")
+        val states = arrayOf("Ongoing","Completed")
         statesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, states)
 
         _binding!!.stateSpinner.setAdapter(statesAdapter)
     }
 
     private fun saveTask(){
+        _binding!!.progressBar.visibility = View.VISIBLE
+
         //val projectName = _binding!!.projectName.text.toString()
         val requestedBy = _binding!!.requestedBy.text.toString()
         val taskName = _binding!!.inputTaskName.text.toString()
@@ -148,14 +152,14 @@ class AddTaskFragment : Fragment() {
             if(ProjectUtility.isConnectedToInternet(mContext)) {
 
                 if(type == "add") {
-                    val task =Task("0",requestedBy,taskName,taskDescription,state,assignee,id.toInt())
+                    val task =Task(0,username,taskName,taskDescription,state,assignee,id.toInt())
                     viewModel.onSaveTaskClicked(task)
                 }else{
-                    val task =Task(taskId,requestedBy,taskName,taskDescription,state,assignee,id.toInt())
+                    val task =Task(taskId.toInt(),username,taskName,taskDescription,state,assignee,id.toInt())
                     viewModel.updateTaskClicked(task)
                 }
             }else{
-
+                _binding!!.progressBar.visibility = View.GONE
                 ProjectUtility.showToastMessage(mContext,"Internet is not available.")
 
             }
@@ -163,6 +167,20 @@ class AddTaskFragment : Fragment() {
 
 
         }
+
+        viewModel.taskResponse.observe(this) {
+
+            _binding!!.progressBar.visibility = View.GONE
+
+        }
+
+        viewModel.updateTasksResponse.observe(this) {
+
+            _binding!!.progressBar.visibility = View.GONE
+
+        }
+
+
     }
 
 

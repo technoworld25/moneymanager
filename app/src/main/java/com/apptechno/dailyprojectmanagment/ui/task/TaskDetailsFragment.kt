@@ -29,7 +29,7 @@ class TaskDetailsFragment : Fragment() {
         val poc = "Poc: "+ customObject?.poc
         val pocNo = "Poc No: "+ customObject?.pocNo
         val architect = "Architect: "+ customObject?.architect
-        val architectNo = "Architect: "+ customObject?.architect
+        val architectNo = "Architect No: "+ customObject?.architectNo
         val state ="Project State: "+ customObject?.projectState
         val year = "Year: "+ customObject?.year
         _binding.projectName.text=projectName

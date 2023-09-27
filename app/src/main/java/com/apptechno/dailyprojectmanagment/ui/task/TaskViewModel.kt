@@ -1,5 +1,6 @@
 package com.apptechno.dailyprojectmanagment.ui.task
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -57,6 +58,7 @@ class TaskViewModel : ViewModel() {
             updateTasksResponse as MutableLiveData
             val result = retrofitService?.updateTask(projectDetails)
             if (result != null && result.isSuccessful) {
+
                 updateTasksResponse.value = result.body()
 
             }

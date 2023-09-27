@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.apptechno.dailyprojectmanagment.HomeActivity
@@ -53,19 +54,21 @@ class ProjectListFragment : Fragment(), OnItemClickListener{
         filteredProjects = ArrayList()
         projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
        _binding!!.list.layoutManager= LinearLayoutManager(context)
+        _binding!!.progressBar.visibility = View.VISIBLE
        _binding!!.list. addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         lifecycleScope.launch {
 
             if(ProjectUtility.isConnectedToInternet(mContext)) {
                 projectViewModel.getProjects()
             }else{
-
+                _binding!!.progressBar.visibility = View.GONE
                 ProjectUtility.showToastMessage(mContext,"Internet is not available.")
 
             }
 
         }
         projectViewModel.projects.observe(this) {
+            _binding!!.progressBar.visibility = View.GONE
             projects = it.data
             filteredProjects = projects
             adapter = MyProjectRecyclerViewAdapter(projects, this)
@@ -93,9 +96,7 @@ class ProjectListFragment : Fragment(), OnItemClickListener{
 
     override fun onItemClick(position: Int) {
         val item = filteredProjects[position-1]
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navController =  requireActivity().findNavController(R.id.nav_host_fragment)
         val dialogMainBinding: DialogFragmentBinding = DialogFragmentBinding.inflate(LayoutInflater.from(requireContext()))
 
         // Initialize dialog

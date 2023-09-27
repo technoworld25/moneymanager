@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
@@ -38,6 +39,7 @@ class AssignedTaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
         super.onViewCreated(view, savedInstanceState)
 
         mContext = requireContext()
+        _binding.progressBar.visibility= View.VISIBLE
         tasks= ArrayList()
         (activity as HomeActivity).supportActionBar!!.elevation = 0f
         (activity as HomeActivity).supportActionBar!!.title = "Assigned Tasks"
@@ -51,7 +53,7 @@ class AssignedTaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
 
                 viewModel.getAssignedTasks(AssignedTaskRequest(name!!))
             }else{
-
+                _binding.progressBar.visibility= View.GONE
                 ProjectUtility.showToastMessage(mContext,"Internet is not available.")
 
             }
@@ -62,6 +64,7 @@ class AssignedTaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
             val adapter = MyTaskRecyclerViewAdapter(it.data, this)
             tasks = it.data as ArrayList<TaskResponse>
             _binding.list.adapter = adapter
+            _binding.progressBar.visibility= View.GONE
 
         }
     }
@@ -74,9 +77,8 @@ class AssignedTaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
             putParcelable("taskResponse", item)
         }
 
-        val navHostFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+
+        val navController = requireActivity().findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.action_assignedTaskFragment_to_addTaskFragment,bundle)
 
     }

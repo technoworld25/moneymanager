@@ -13,17 +13,7 @@
         <action
             android:id="@+id/action_nav_home_to_nav_add_project"
             app:destination="@id/nav_add_project" />
-        <action
-            android:id="@+id/action_nav_home_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" >
-            <argument
-                android:name="taskResponse"
-                app:argType="com.apptechno.dailyprojectmanagment.model.TaskResponse">
-            </argument>
-        </action>
-        <action
-            android:id="@+id/action_nav_home_to_taskFragment"
-            app:destination="@id/taskFragment" />
+
         <action
             android:id="@+id/action_nav_home_to_projectListFragment"
             app:destination="@id/projectListFragment" >
@@ -37,6 +27,9 @@
         <action
             android:id="@+id/action_nav_home_to_pendingItemsFragment"
             app:destination="@id/pendingItemsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
 
     <fragment
@@ -54,12 +47,12 @@
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.task.AddTaskFragment"
-        android:label="fragment_add_task2"
+        android:label="Add Task"
         tools:layout="@layout/fragment_add_task" />
     <fragment
         android:id="@+id/taskFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.task.TaskFragment"
-        android:label="fragment_task_list"
+        android:label="Task List"
         tools:layout="@layout/fragment_task_list" >
         <action
             android:id="@+id/action_taskFragment_to_addTaskFragment"
@@ -68,7 +61,7 @@
     <fragment
         android:id="@+id/projectListFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.project.ProjectListFragment"
-        android:label="fragment_project_item"
+        android:label="Project List"
         tools:layout="@layout/fragment_project_item" >
         <action
             android:id="@+id/action_projectListFragment_to_addTaskFragment"
@@ -90,7 +83,7 @@
     <fragment
         android:id="@+id/assignedTaskFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.AssignedTaskFragment"
-        android:label="fragment_assigned_task_list"
+        android:label="Assigned Tasks"
         tools:layout="@layout/fragment_assigned_task_list" >
         <action
             android:id="@+id/action_assignedTaskFragment_to_addTaskFragment"
@@ -99,7 +92,7 @@
     <fragment
         android:id="@+id/pendingItemsFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.PendingItemsFragment"
-        android:label="PendingItemsFragment" >
+        android:label="Search" >
         <action
             android:id="@+id/action_pendingItemsFragment_to_taskDetailsFragment"
             app:destination="@id/taskDetailsFragment" />
@@ -107,6 +100,11 @@
     <fragment
         android:id="@+id/taskDetailsFragment"
         android:name="com.apptechno.dailyprojectmanagment.ui.task.TaskDetailsFragment"
-        android:label="fragment_task_details"
+        android:label="Task Details"
         tools:layout="@layout/fragment_task_details" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.apptechno.dailyprojectmanagment.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>
