@@ -2,6 +2,7 @@ package com.apptechno.dailyprojectmanagment.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +52,12 @@ class AssignedTaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
         lifecycleScope.launch {
             if(ProjectUtility.isConnectedToInternet(mContext)) {
 
-                viewModel.getAssignedTasks(AssignedTaskRequest(name!!))
+                try {
+                    viewModel.getAssignedTasks(AssignedTaskRequest(name!!))
+                }catch (e:Exception){
+                    Log.d("Exception",e.message.toString())
+                }
+
             }else{
                 _binding.progressBar.visibility= View.GONE
                 ProjectUtility.showToastMessage(mContext,"Internet is not available.")

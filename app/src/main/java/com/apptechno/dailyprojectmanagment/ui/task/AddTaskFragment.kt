@@ -3,13 +3,17 @@ package com.apptechno.dailyprojectmanagment.ui.task
 //noinspection SuspiciousImport
 import android.R
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.DatePicker
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +36,9 @@ class AddTaskFragment : Fragment() {
     private lateinit var type:String
     private lateinit var taskId :String
     private lateinit var mContext:Context
+
+    private val datePicker: DatePicker? = null
+    private val showDateButton: Button? = null
 
 
     override fun onCreateView(
@@ -57,6 +64,14 @@ class AddTaskFragment : Fragment() {
 
         setSpinners()
         showDetailsIfAvailable()
+        binding.showDateButton.setOnClickListener {
+            val year = datePicker?.year
+            val month = datePicker?.month
+            val day = datePicker?.dayOfMonth
+
+            // Show the selected date in a dialog
+            showDialog(year!!, month!!,day!!)
+        }
 
         _binding!!.buttonSave.setOnClickListener {
 
@@ -109,6 +124,20 @@ class AddTaskFragment : Fragment() {
     }
     private lateinit var assigneesAdapter: ArrayAdapter<String>
     private lateinit var statesAdapter: ArrayAdapter<String>
+
+    private val datePickerListener = DatePickerDialog.OnDateSetListener { view, selectedYear, selectedMonth, selectedDay ->
+        // Do something with the selected date (e.g., display it in a TextView)
+        val selectedDate = "Selected Date: $selectedYear-${selectedMonth + 1}-$selectedDay"
+        // Replace this with your preferred way of displaying the selected date
+        // (e.g., update a TextView, save it to a variable, etc.)
+        // For this example, we'll just print it to the console.
+        println(selectedDate)
+    }
+
+    private fun showDialog(year: Int, month: Int, day: Int) {
+        showDialog(year, month, day)
+    }
+
 
     private fun setSpinners(){
         var assignees = emptyArray<String>()

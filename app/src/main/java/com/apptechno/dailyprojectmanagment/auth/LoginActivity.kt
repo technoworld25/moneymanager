@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -52,7 +53,11 @@ class LoginActivity : AppCompatActivity() {
             // launching a new coroutine
             lifecycleScope.launch(Dispatchers.IO) {
                 if(ProjectUtility.isConnectedToInternet(mContext)) {
-                    viewModel.onLoginClicked(UserRequest(username, password))
+                    try {
+                        viewModel.onLoginClicked(UserRequest(username, password))
+                    }catch (e:Exception){
+                        Log.d("Exception",e.message!!)
+                    }
 
                 }else{
 

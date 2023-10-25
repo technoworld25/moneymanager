@@ -2,8 +2,7 @@ package com.apptechno.dailyprojectmanagment.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.versionedparcelable.ParcelField
-import androidx.versionedparcelable.VersionedParcelize
+
 import com.google.gson.annotations.SerializedName
 
 
