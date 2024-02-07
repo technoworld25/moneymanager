@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
 <LinearLayout
-    android:layout_marginTop="25dp"
+    android:layout_marginTop="20dp"
     android:paddingBottom="30dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +15,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="30dp"
         android:layout_width="match_parent"
@@ -31,7 +31,6 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/female">
-
 
             </com.google.android.material.imageview.ShapeableImageView>
 
@@ -52,27 +51,29 @@
 
 
     <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="320dp"
-        android:layout_margin="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
         <LinearLayout
+            android:layout_margin="5dp"
             android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
+                android:padding="20dp"
                 android:id="@+id/btnAdProject"
-                android:drawableTop="@drawable/projects"
-                android:text="Add Project"
-                style="@style/HomeImageButtonStyle">
-            </com.google.android.material.button.MaterialButton>
+                style="@style/HomeImageButtonStyle"
+                android:drawableTop="@drawable/multitasking"
+                android:text="Add Project"></com.google.android.material.button.MaterialButton>
 
             <com.google.android.material.button.MaterialButton
+                android:padding="20dp"
                 android:id="@+id/btnAdTask"
                 style="@style/HomeImageButtonStyle"
-                android:drawableTop="@drawable/task"
+                android:drawableTop="@drawable/task_manager"
                 android:text="Add Task">
 
             </com.google.android.material.button.MaterialButton>

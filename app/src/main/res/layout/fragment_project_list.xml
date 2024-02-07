@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
     android:orientation="horizontal">
 
     <TextView
@@ -15,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
+        android:textSize="14sp"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +31,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
         android:ellipsize="none"
         android:textStyle="normal"
         android:id="@+id/state"
@@ -30,11 +38,11 @@
         app:layout_constraintHorizontal_weight="1"
         android:layout_height="wrap_content"
         android:text="Completed"
+        android:textSize="14sp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toStartOf="@+id/assignee"
-
         app:layout_constraintStart_toEndOf="@+id/task_name"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,10 +50,11 @@
         android:ellipsize="none"
         android:maxLines="2"
         app:layout_constraintHorizontal_weight="1"
-        android:text="Anushre ANupam Limaye"
+        android:text="Anushre Anupam Limaye"
         android:textStyle="normal"
         android:id="@+id/assignee"
         android:layout_width="0dp"
+        android:textSize="14sp"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,3 +64,5 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

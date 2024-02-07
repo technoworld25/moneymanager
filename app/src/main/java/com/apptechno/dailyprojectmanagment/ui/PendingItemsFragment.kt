@@ -72,7 +72,7 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
         })
 
 
-        viewModel.pendingTasks.observe(this) {
+        viewModel.pendingTasks.observe(viewLifecycleOwner) {
 
             adapter = TaskDetailsAdapter(it.data, this)
             taskList = it.data as ArrayList<TaskDetails>
@@ -92,8 +92,7 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
             putParcelable("taskResponse", item)
         }
 
-//        val navHostFragment =
-//            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+
         val navController = requireActivity().findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.action_pendingItemsFragment_to_taskDetailsFragment,bundle)
 

@@ -68,7 +68,7 @@ class TaskFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.project.O
 
         }
 
-        viewModel.tasks.observe(this) {
+        viewModel.tasks.observe(viewLifecycleOwner) {
             tasks = it.data
             filteredTasks = tasks
             binding.progressBar.visibility= View.GONE

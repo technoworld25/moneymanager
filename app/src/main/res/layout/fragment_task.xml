@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <TextView
+        android:textSize="14sp"
         android:text="Task name"
         android:ellipsize="none"
         android:maxLines="2"
@@ -22,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-
+        android:textSize="14sp"
         android:ellipsize="none"
         android:textStyle="normal"
         android:id="@+id/state"
@@ -39,6 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textSize="14sp"
         android:ellipsize="none"
         android:maxLines="2"
         app:layout_constraintHorizontal_weight="1"
@@ -55,3 +65,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

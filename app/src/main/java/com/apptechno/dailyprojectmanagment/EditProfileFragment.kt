@@ -59,7 +59,7 @@ class EditProfileFragment : Fragment() {
 
         }
 
-        viewModel.response.observe(this){
+        viewModel.response.observe(viewLifecycleOwner){
 
             if(it.status.equals("Success")){
                 Toast.makeText(requireContext(),"User is updated successfully",Toast.LENGTH_SHORT).show()

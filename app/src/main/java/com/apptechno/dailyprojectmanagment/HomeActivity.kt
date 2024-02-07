@@ -35,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.destination1, R.id.destination1), drawerLayout
+                R.id.destination1, R.id.destination1), null
         )
         val navView: NavigationView = binding.navigationView
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -72,20 +72,9 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-
-   fun init() {
-
-
-    }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-
-      //  navController.popBackStack()
-       // return true
     }
-
-
-
 
 }

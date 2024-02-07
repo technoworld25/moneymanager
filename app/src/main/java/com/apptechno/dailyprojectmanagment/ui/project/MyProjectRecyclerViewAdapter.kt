@@ -1,13 +1,15 @@
 package com.apptechno.dailyprojectmanagment.ui.project
 
-import androidx.recyclerview.widget.RecyclerView
+import android.R
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.apptechno.dailyprojectmanagment.R
+import androidx.recyclerview.widget.RecyclerView
 import com.apptechno.dailyprojectmanagment.databinding.FragmentProjectListBinding
 import com.apptechno.dailyprojectmanagment.model.Project
+
 
 interface OnItemClickListener{
     fun onItemClick(position:Int)
@@ -22,8 +24,8 @@ class MyProjectRecyclerViewAdapter(
 
     private val projectList = ArrayList(values)
     init {
-        val project = Project("0","Project","Client","Address","Contact","Poc","PocNo",
-            "Architect","ArchitectNo","Assignee","Year","State")
+        val project = Project("0","Project","Point Of Contact","Contact","Designation","Architect","ArchitectNo",
+            "Lead","Year","Address","State","Status")
         projectList.add(0 ,project)
         values = projectList
 
@@ -46,13 +48,29 @@ class MyProjectRecyclerViewAdapter(
         holder.state.text = item.state
         holder.assignee.text = item.asignee
 
-        // Set different colors for the 0th element
-        if (position == 0) {
-           holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,R.color.grey_color))
-        } else {
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,R.color.white))
+        val backgroundColor: Int
+         if (holder.itemView.context.resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK === Configuration.UI_MODE_NIGHT_YES
+        ) {
+             if (position == 0) {
+                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                    R.color.darker_gray))
+             } else {
+                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,com.apptechno.dailyprojectmanagment.R.color.black))
 
+             }
+        } else {
+            // Dark mode is not enabled
+             if (position == 0) {
+                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,com.apptechno.dailyprojectmanagment.R.color.grey_color))
+             } else {
+                 holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context,R.color.white))
+
+             }
         }
+
+
+
 
     }
 

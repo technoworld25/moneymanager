@@ -10,14 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apptechno.dailyprojectmanagment.HomeActivity
-import com.apptechno.dailyprojectmanagment.R.array.india_states
 import com.apptechno.dailyprojectmanagment.databinding.FragmentProjectBinding
 import com.apptechno.dailyprojectmanagment.model.Project
 import com.apptechno.dailyprojectmanagment.utility.ProjectUtility
+import com.apptechno.dailyprojectmanagment.utility.States
 import kotlinx.coroutines.launch
 
 
@@ -31,7 +30,7 @@ class AddProjectFragment : Fragment() {
     private lateinit var projectId:String
     private lateinit var mContext:Context
 
-    private val states = arrayOf("Ongoing","Completed" )
+    private val projectStatus = arrayOf("Ongoing","Completed" )
 
 
     override fun onCreateView(
@@ -64,7 +63,7 @@ class AddProjectFragment : Fragment() {
          saveProject()
       }
 
-      viewModel.response.observe(this) {
+      viewModel.response.observe(viewLifecycleOwner) {
 
           if (it != null) {
 
@@ -73,7 +72,7 @@ class AddProjectFragment : Fragment() {
           }
       }
 
-      viewModel.updateProjectResponse.observe(this) {
+      viewModel.updateProjectResponse.observe(viewLifecycleOwner) {
 
           Log.d("SS", it.toString())
           if (it != null) {
@@ -91,16 +90,16 @@ class AddProjectFragment : Fragment() {
              type = "edit"
              projectId = customObject.projectId
             _binding?.inputProjectname?.setText(customObject.projectName)
-            _binding?.inputClientName?.setText(customObject.clientName)
-            _binding?.inputContactNumber?.setText(customObject.contactNo)
-            _binding?.inputLocationName?.setText(customObject.address)
             _binding?.inputPoc?.setText(customObject.poc)
             _binding?.inputPocNo?.setText(customObject.pocNo)
+            _binding?.inputDesignation?.setText(customObject.designation)
             _binding?.inputArchitectName?.setText(customObject.architect)
             _binding?.inputArchitectContactNumber?.setText(customObject.architectNo)
             _binding!!.responsibiltySpinner.setText(customObject.asignee,false)
             _binding!!.yearSpinner.setText(customObject.year,false)
+            _binding?.inputLocationName?.setText(customObject.address)
             _binding!!.stateSpinner.setText(customObject.state,false)
+            _binding!!.statusSpinner.setText(customObject.status,false)
             (activity as HomeActivity).supportActionBar!!.title = "Edit Project"
 
         }else{
@@ -112,19 +111,19 @@ class AddProjectFragment : Fragment() {
 
   private fun saveProject(){
       val projectName = _binding?.inputProjectname?.text.toString()
-      val client = _binding?.inputClientName?.text.toString()
-      val phone = _binding?.inputContactNumber?.text.toString()
       val address = _binding?.inputLocationName?.text.toString()
       val poc = _binding?.inputPoc?.text.toString()
       val pocNo = _binding?.inputPocNo?.text.toString()
+      val designation = _binding?.inputDesignation?.text.toString()
       val architect = _binding?.inputArchitectName?.text.toString()
       val architectNo = _binding?.inputArchitectContactNumber?.text.toString()
       val selectedYear = _binding?.yearSpinner?.text.toString()
       val selectedState = _binding?.stateSpinner?.text.toString()
+      val status = _binding?.statusSpinner?.text.toString()
       val assigneeState = _binding?.responsibiltySpinner?.text.toString()
 
-      if (projectName.isEmpty() || client.isEmpty() || address.isEmpty()
-          && phone.isEmpty() || poc.isEmpty() || pocNo.isEmpty()
+      if (projectName.isEmpty() || designation.isEmpty() || address.isEmpty()
+          &&  poc.isEmpty() || pocNo.isEmpty()
           && architect.isEmpty() || architectNo.isEmpty() || selectedYear.isEmpty() || assigneeState.isEmpty()){
 
           ProjectUtility.showToastMessage(requireContext(),"Please fill project details.")
@@ -137,15 +136,15 @@ class AddProjectFragment : Fragment() {
 
                   if(type == "add"){
                       val project = Project("0",
-                          projectName, client, address, phone, poc, pocNo, architect,
-                          architectNo, assigneeState, selectedYear, selectedState
+                          projectName, poc, pocNo,designation, architect,
+                          architectNo, assigneeState, selectedYear,address, selectedState,status
                       )
                       viewModel.onSaveProjectClicked(project)
                   }
                   else{
                       val project = Project(projectId,
-                          projectName, client, address, phone, poc, pocNo, architect,
-                          architectNo, assigneeState, selectedYear, selectedState
+                          projectName, poc, pocNo,designation, architect,
+                          architectNo, assigneeState, selectedYear,address, selectedState,status
                       )
                       viewModel.updateProjectClicked(project)
                   }
@@ -157,12 +156,12 @@ class AddProjectFragment : Fragment() {
 
           }
 
-          viewModel.response.observe(this ){
+          viewModel.response.observe(viewLifecycleOwner ){
 
               _binding?.progressBar!!.visibility  = View.GONE
           }
 
-          viewModel.updateProjectResponse.observe(this ){
+          viewModel.updateProjectResponse.observe(viewLifecycleOwner ){
 
               _binding?.progressBar!!.visibility  = View.GONE
           }
@@ -171,21 +170,27 @@ class AddProjectFragment : Fragment() {
   }
 
     private fun setSpinners(){
-        resources.getStringArray(india_states)
         val stateAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            context!!,
+            mContext,
             R.layout.simple_spinner_item,
-            states
+            States.statesInIndia
         )
         _binding!!.stateSpinner.setAdapter(stateAdapter)
 
-        val years = arrayOf("2020","2021","2022","2023","2024","2025")
-        val yearAdapter: ArrayAdapter<String> = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, years)
+        val statusAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            mContext,
+            R.layout.simple_spinner_item,
+            projectStatus
+        )
+        _binding!!.statusSpinner.setAdapter(statusAdapter)
+
+        val years = arrayOf("2023","2024","2025","2026","2027")
+        val yearAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mContext, R.layout.simple_spinner_item, years)
         yearAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         _binding!!.yearSpinner.setAdapter(yearAdapter)
 
         val assignees = arrayOf("Anupam Limaye","Veejhay Limaye","Abhijeet Limaye")
-        val assigneesAdapter: ArrayAdapter<String> = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, assignees)
+        val assigneesAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mContext, R.layout.simple_spinner_item, assignees)
         assigneesAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         _binding!!.responsibiltySpinner.setAdapter(assigneesAdapter)
     }

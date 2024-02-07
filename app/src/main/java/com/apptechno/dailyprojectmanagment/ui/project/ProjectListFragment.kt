@@ -55,7 +55,7 @@ class ProjectListFragment : Fragment(), OnItemClickListener{
         projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
        _binding!!.list.layoutManager= LinearLayoutManager(context)
         _binding!!.progressBar.visibility = View.VISIBLE
-       _binding!!.list. addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+    //   _binding!!.list. addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         lifecycleScope.launch {
 
             if(ProjectUtility.isConnectedToInternet(mContext)) {

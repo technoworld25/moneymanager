@@ -37,8 +37,11 @@ class AddTaskFragment : Fragment() {
     private lateinit var taskId :String
     private lateinit var mContext:Context
 
-    private val datePicker: DatePicker? = null
+    private var datePicker: DatePicker? = null
     private val showDateButton: Button? = null
+    private lateinit var assigneesAdapter: ArrayAdapter<String>
+    private lateinit var statesAdapter: ArrayAdapter<String>
+
 
 
     override fun onCreateView(
@@ -61,29 +64,38 @@ class AddTaskFragment : Fragment() {
         (activity as HomeActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mContext = requireContext()
         viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
+        datePicker = binding.datePicker
+
 
         setSpinners()
         showDetailsIfAvailable()
-        binding.showDateButton.setOnClickListener {
-            val year = datePicker?.year
-            val month = datePicker?.month
-            val day = datePicker?.dayOfMonth
 
-            // Show the selected date in a dialog
-            showDialog(year!!, month!!,day!!)
+        val initialYear = 2024
+        val initialMonth = 0 // Months are zero-based, so January is 0
+        val initialDay = 1
+        binding.datePicker.init(initialYear, initialMonth, initialDay) { _, year, monthOfYear, dayOfMonth ->
+            // Update the TextView with the selected date
+            val formattedMonth = String.format("%02d", monthOfYear + 1) // Add leading zero if needed
+            val formattedDay = String.format("%02d", dayOfMonth) // Add leading zero if needed
+
+            // Update the TextView with the selected date
+            val date = "$formattedDay/$formattedMonth/$year"
+            binding.showDateButton.text = "Selected Date : $date"
+            selectedDate = date
         }
+
 
         _binding!!.buttonSave.setOnClickListener {
 
            saveTask()
 
         }
-        viewModel.taskResponse.observe(this) {
+        viewModel.taskResponse.observe(viewLifecycleOwner) {
 
             ProjectUtility.showToastMessage(requireContext(), it.message)
 
         }
-        viewModel.updateTasksResponse.observe(this) {
+        viewModel.updateTasksResponse.observe(viewLifecycleOwner) {
 
             ProjectUtility.showToastMessage(requireContext(), it.message)
 
@@ -91,6 +103,7 @@ class AddTaskFragment : Fragment() {
     }
 
     var username =""
+    var selectedDate =""
     @SuppressLint("SetTextI18n")
     private fun showDetailsIfAvailable(){
         val customObject = arguments?.getParcelable<TaskResponse>("taskResponse")
@@ -122,29 +135,13 @@ class AddTaskFragment : Fragment() {
         }
 
     }
-    private lateinit var assigneesAdapter: ArrayAdapter<String>
-    private lateinit var statesAdapter: ArrayAdapter<String>
-
-    private val datePickerListener = DatePickerDialog.OnDateSetListener { view, selectedYear, selectedMonth, selectedDay ->
-        // Do something with the selected date (e.g., display it in a TextView)
-        val selectedDate = "Selected Date: $selectedYear-${selectedMonth + 1}-$selectedDay"
-        // Replace this with your preferred way of displaying the selected date
-        // (e.g., update a TextView, save it to a variable, etc.)
-        // For this example, we'll just print it to the console.
-        println(selectedDate)
-    }
-
-    private fun showDialog(year: Int, month: Int, day: Int) {
-        showDialog(year, month, day)
-    }
-
 
     private fun setSpinners(){
         var assignees = emptyArray<String>()
         lifecycleScope.launch {
             viewModel.getUsers()
         }
-        viewModel.users.observe(this, Observer {
+        viewModel.users.observe(viewLifecycleOwner, Observer {
             val userlist = ArrayList<String>()
             it.data.forEach {
                 userlist.add(it.username)
@@ -153,13 +150,13 @@ class AddTaskFragment : Fragment() {
             val userNameArray = userlist.map { it }.toTypedArray()
             assignees= userNameArray
 
-            assigneesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, assignees)
+            assigneesAdapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, assignees)
 
             _binding!!.assigneeSpinner.setAdapter(assigneesAdapter)
         })
 
         val states = arrayOf("Ongoing","Completed")
-        statesAdapter = ArrayAdapter<String>(context!!, R.layout.simple_spinner_item, states)
+        statesAdapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, states)
 
         _binding!!.stateSpinner.setAdapter(statesAdapter)
     }
@@ -181,29 +178,25 @@ class AddTaskFragment : Fragment() {
             if(ProjectUtility.isConnectedToInternet(mContext)) {
 
                 if(type == "add") {
-                    val task =Task(0,username,taskName,taskDescription,state,assignee,id.toInt())
+                    val task =Task(0,username,taskName,taskDescription,state,assignee,selectedDate,id.toInt())
                     viewModel.onSaveTaskClicked(task)
                 }else{
-                    val task =Task(taskId.toInt(),username,taskName,taskDescription,state,assignee,id.toInt())
+                    val task =Task(taskId.toInt(),username,taskName,taskDescription,state,assignee,selectedDate,id.toInt())
                     viewModel.updateTaskClicked(task)
                 }
             }else{
                 _binding!!.progressBar.visibility = View.GONE
                 ProjectUtility.showToastMessage(mContext,"Internet is not available.")
-
             }
 
-
-
         }
-
-        viewModel.taskResponse.observe(this) {
+        viewModel.taskResponse.observe(viewLifecycleOwner) {
 
             _binding!!.progressBar.visibility = View.GONE
 
         }
 
-        viewModel.updateTasksResponse.observe(this) {
+        viewModel.updateTasksResponse.observe(viewLifecycleOwner) {
 
             _binding!!.progressBar.visibility = View.GONE
 

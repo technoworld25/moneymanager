@@ -26,6 +26,10 @@ class RegisterActivity : AppCompatActivity() {
 
         mContext = this@RegisterActivity
         supportActionBar!!.hide()
+
+        binding.txtGoBack.setOnClickListener {
+           finish()
+        }
     }
 
     fun onRegisterButtonClicked(view :View){

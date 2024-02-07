@@ -34,23 +34,6 @@
         android:text="Project Lead" />
 
 
-    <TextView
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:id="@+id/client"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Client Name" />
-
-    <TextView
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Phone" />
 
     <View
         android:layout_marginTop="10dp"
@@ -76,6 +59,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="POC Number" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/designation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Designation" />
+
+
+
 
     <View
         android:layout_marginTop="10dp"
@@ -117,6 +112,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Year" />
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address" />
 
     <TextView
         android:layout_marginStart="10dp"
@@ -126,6 +129,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="State" />
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Project Status" />
 
     <View
         android:layout_marginTop="10dp"
@@ -178,13 +189,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Requester" />
+
+    <TextView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date" />
     <View
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/grey_color"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-
-
 
 </LinearLayout>

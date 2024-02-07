@@ -25,6 +25,9 @@ data class Task(
     @SerializedName("assignee")
     val assignee: String,
 
+    @SerializedName("date")
+    val date: String,
+
     @SerializedName("projectid")
     val projectid:Int) {
     
@@ -51,6 +54,9 @@ data class TaskResponse(
     @SerializedName("asignee")
     val assignee: String,
 
+    @SerializedName("date")
+    val date: String,
+
     @SerializedName("projectid")
     val projectid:Int,
 
@@ -60,8 +66,7 @@ data class TaskResponse(
     @SerializedName("name")
     val name:String,
 
-    @SerializedName("client")
-    val client:String):Parcelable
+    ):Parcelable
 {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -70,9 +75,9 @@ data class TaskResponse(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readInt(),
-        parcel.readInt(),
         parcel.readString()!!,
+        parcel.readInt(),
+        parcel.readInt(),
         parcel.readString()!!
     ) {
     }
@@ -87,7 +92,7 @@ data class TaskResponse(
         parcel.writeInt(projectid)
         parcel.writeInt(id)
         parcel.writeString(name)
-        parcel.writeString(client)
+
     }
 
     override fun describeContents(): Int {

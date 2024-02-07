@@ -22,6 +22,9 @@ val taskstate : String,
 @SerializedName("asignee")
 val assignee: String,
 
+@SerializedName("date")
+val date: String,
+
 @SerializedName("projectid")
 val projectid:Int,
 
@@ -31,14 +34,6 @@ val id:Int,
 @SerializedName("name")
 val name:String,
 
-@SerializedName("client")
-val client:String,
-
-@SerializedName("address")
-val address:String,
-
-@SerializedName("phone")
-val phone:String,
 
 @SerializedName("poc")
 val poc:String,
@@ -46,8 +41,14 @@ val poc:String,
 @SerializedName("pocno")
 val pocNo:String,
 
+@SerializedName("designation")
+val designation:String,
+
 @SerializedName("architect")
 val architect:String,
+
+@SerializedName("address")
+val address:String,
 
 @SerializedName("architectno")
 val architectNo:String,
@@ -59,8 +60,12 @@ val lead:String,
 val year:String,
 
 @SerializedName("state")
-val projectState:String) :Parcelable{
+val projectState:String,
+
+@SerializedName("project_status")
+val status:String):Parcelable{
     constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -93,15 +98,16 @@ val projectState:String) :Parcelable{
         parcel.writeInt(projectid)
         parcel.writeInt(id)
         parcel.writeString(name)
-        parcel.writeString(client)
+        parcel.writeString(designation)
         parcel.writeString(address)
-        parcel.writeString(phone)
+        parcel.writeString(status)
         parcel.writeString(poc)
         parcel.writeString(pocNo)
         parcel.writeString(architect)
         parcel.writeString(architectNo)
         parcel.writeString(lead)
         parcel.writeString(year)
+        parcel.writeString(date)
         parcel.writeString(projectState)
     }
 

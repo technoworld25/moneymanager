@@ -5,8 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.Toast
 
-
-
 class ProjectUtility {
 
     companion object{

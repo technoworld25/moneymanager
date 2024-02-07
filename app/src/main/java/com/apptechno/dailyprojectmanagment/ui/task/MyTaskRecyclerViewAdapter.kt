@@ -17,7 +17,8 @@ class MyTaskRecyclerViewAdapter(
 
     init {
         val taskList = ArrayList(tasks)
-        val task = TaskResponse("taskid","Assigner","Task Name","Description","State","Assignee",1,1,"Name","Client")
+        val task = TaskResponse("taskid","Assigner","Task Name","Description","State",
+            "Assignee","Date",1,1,"Name")
         taskList.add(0 ,task)
         tasks = taskList
     }

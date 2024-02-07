@@ -10,37 +10,38 @@ data class Project(
     val projectId:String,
 
     @SerializedName("name")
-    val projectName:String,
-
-    @SerializedName("client")
-    val clientName : String,
-
-    @SerializedName("address")
-    val address:String,
-
-    @SerializedName("phone")
-    val contactNo:String,
+    val projectName:String ,
 
     @SerializedName("poc")
-    val poc:String,
+    val poc:String="N.A.",
 
     @SerializedName("pocno")
-    val pocNo:String,
+    val pocNo:String="N.A.",
+
+    @SerializedName("designation")
+    val designation:String="N.A.",
 
     @SerializedName("architect")
-    val architect:String,
+    val architect:String="N.A.",
 
     @SerializedName("architectno")
-    val architectNo:String,
+    val architectNo:String="N.A.",
 
     @SerializedName("lead")
-    val asignee:String,
+    val asignee:String="N.A.",
 
     @SerializedName("year")
-     val year:String,
+     val year:String="N.A.",
+
+    @SerializedName("address")
+    val address:String="N.A.",
 
     @SerializedName("state")
-    var state:String
+    var state:String,
+
+    @SerializedName("project_status")
+    var status:String,
+
     ) :Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
@@ -54,16 +55,16 @@ data class Project(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.readString().toString()
+        parcel.readString().toString(),
+
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(projectId)
         parcel.writeString(projectName)
-        parcel.writeString(clientName)
         parcel.writeString(address)
-        parcel.writeString(contactNo)
+        parcel.writeString(designation)
         parcel.writeString(poc)
         parcel.writeString(pocNo)
         parcel.writeString(architect)
@@ -71,6 +72,7 @@ data class Project(
         parcel.writeString(asignee)
         parcel.writeString(year)
         parcel.writeString(state)
+        parcel.writeString(status)
     }
 
     override fun describeContents(): Int {
