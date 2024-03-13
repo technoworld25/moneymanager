@@ -12,8 +12,6 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.DialogFragmentBinding
@@ -67,7 +65,7 @@ class ProjectListFragment : Fragment(), OnItemClickListener{
             }
 
         }
-        projectViewModel.projects.observe(this) {
+        projectViewModel.projects.observe(viewLifecycleOwner) {
             _binding!!.progressBar.visibility = View.GONE
             projects = it.data
             filteredProjects = projects
@@ -78,7 +76,7 @@ class ProjectListFragment : Fragment(), OnItemClickListener{
         _binding!!.projectStateSpinner.setOnItemClickListener { parent, _, position, _ ->
 
              val selectedItem = parent.getItemAtPosition(position) as String
-             filteredProjects = projects.filter { it.state == selectedItem}
+             filteredProjects = projects.filter { it.status == selectedItem}
              adapter = MyProjectRecyclerViewAdapter(filteredProjects,this)
             _binding!!.list.adapter = adapter
 
@@ -89,7 +87,7 @@ class ProjectListFragment : Fragment(), OnItemClickListener{
         super.onResume()
 
         val states = arrayOf("Ongoing","Completed")
-        val statesAdapter: ArrayAdapter<String> = ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item, states)
+        val statesAdapter: ArrayAdapter<String> = ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, states)
         _binding!!.projectStateSpinner.setAdapter(statesAdapter)
         statesAdapter.filter.filter("")
     }

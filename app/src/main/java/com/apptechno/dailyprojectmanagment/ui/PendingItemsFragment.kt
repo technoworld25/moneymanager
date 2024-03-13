@@ -10,7 +10,6 @@ import android.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import com.apptechno.dailyprojectmanagment.HomeActivity
 import com.apptechno.dailyprojectmanagment.R
 import com.apptechno.dailyprojectmanagment.databinding.FragmentPendingItemsBinding
@@ -73,11 +72,9 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
 
 
         viewModel.pendingTasks.observe(viewLifecycleOwner) {
-
             adapter = TaskDetailsAdapter(it.data, this)
             taskList = it.data as ArrayList<TaskDetails>
             _binding.list.adapter = adapter
-
             ProjectUtility.showToastMessage(requireContext(), it.message)
 
         }
@@ -92,12 +89,8 @@ class PendingItemsFragment : Fragment(),com.apptechno.dailyprojectmanagment.ui.p
             putParcelable("taskResponse", item)
         }
 
-
         val navController = requireActivity().findNavController(R.id.nav_host_fragment)
         navController.navigate(R.id.action_pendingItemsFragment_to_taskDetailsFragment,bundle)
-
-
-
     }
 
 
